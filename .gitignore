@@ -91,3 +91,6 @@ venv.bak/
 .pyre/
 # VS Code settings
 .vscode
+
+# Backend gitignore
+/backend/.gitignore
