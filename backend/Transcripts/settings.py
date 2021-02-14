@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +28,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -129,7 +131,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 
 
@@ -152,6 +154,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+FRONTEND_DOMAIN = "www.abc.com"
 # DJOSER SETUP
 DJOSER = {
     'LOGIN_FIELD':'email',
@@ -169,5 +172,13 @@ DJOSER = {
         'user':'accounts.serializers.UserCreateSerializer',
         'user_delete':'djoser.serializers.UserDeleteSerializer',
     },
+    "EMAIL": {
+        "activation": "accounts.email.ActivationEmail",
+        "confirmation": "accounts.email.ConfirmationEmail",
+        "password_reset": "accounts.email.PasswordResetEmail",
+        "password_changed_confirmation": "accounts.email.PasswordChangedConfirmationEmail",
+        "username_changed_confirmation": "accounts.email.UsernameChangedConfirmationEmail",
+        "username_reset": "accounts.email.UsernameResetEmail"
+    }
 }
 
