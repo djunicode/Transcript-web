@@ -27,3 +27,4 @@ class myUserAdmin(UserAdmin):
 admin.site.register(AppUser,myUserAdmin)
 admin.site.register(StudentProfile)
 admin.site.register(ManagementProfile)
+admin.site.register(Application)
