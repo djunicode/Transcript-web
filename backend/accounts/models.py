@@ -102,18 +102,3 @@ class ManagementProfile(models.Model):
     def __str__(self):
         return self.name
 
-class Application(models.Model):
-    Status = (
-        ('In Queue', 'In Queue'),
-        ('In Review', 'In Review'),
-        ('Rejected', 'Rejected'),
-        ('Accepted', 'Accepted'),
-    )
-    student = models.ForeignKey(StudentProfile,on_delete=models.CASCADE)
-    faculty = models.ForeignKey(ManagementProfile,on_delete=models.CASCADE,null=True,blank=True)
-    application_number = models.AutoField(primary_key=True)
-    date_of_application = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=40, choices=Status)
-    comment = models.TextField(null=True,blank=True)
-    in_review = models.BooleanField(default=False)
-    application_file = models.FileField()

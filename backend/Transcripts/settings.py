@@ -21,7 +21,7 @@ config.encoding = 'cp1251'
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'p!ptauvv-$*q(o#_3-xztu6w9c@kqe+dr-gd&e+jhl!4+rey$e'
+SECRET_KEY = config('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -81,8 +81,8 @@ WSGI_APPLICATION = 'Transcripts.wsgi.application'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'transcriptbackend@gmail.com'
-EMAIL_HOST_PASSWORD = 'okgovzhcycihtrcl'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 # Database
