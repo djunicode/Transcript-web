@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'accounts',
-    'studentDemo',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +135,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 
+MEDIA_URL='/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'Images')
 
 
 
