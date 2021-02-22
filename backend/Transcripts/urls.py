@@ -19,7 +19,8 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('accounts.urls')),
-    path('core/', include('core.urls')),
+    path('api/', include('accounts.urls')),
+    path('api/', include('core.urls')),
 ]
 
+# urlpatterns += [re_path(r'^(?!api/).*', TemplateView.as_view(template_name="index.html"))] for react in prod if deploying on same server
