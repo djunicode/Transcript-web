@@ -147,7 +147,7 @@ AUTH_USER_MODEL = 'accounts.AppUser'
 # simple jwt setup
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+   'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 

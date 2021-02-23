@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from accounts.models import StudentProfile, ManagementProfile, AppUser
+from .models import Application,Marksheet
 
 # delete this serializer if everthing works fine
 # class UpdateStudentProfileSerializer(serializers.ModelSerializer):
@@ -18,6 +19,26 @@ class UserSerializer(serializers.ModelSerializer):
         model = AppUser
         fields = ('email',)
 
+
+
+
+class ApplicationSerializer(serializers.ModelSerializer):
+    marksheet = serializers.SerializerMethodField('get_marks')
+    def get_marks(self, obj):
+        return obj.student.marksheet
+    class Meta:
+        model = Application
+        fields = ('id', 'student','faculty', 'in_review', 'created_at','accepted', 'comment', 'marksheet')
+
+class AcceptedSerializer(serializers.ModelSerializer):
+    '''
+    Since we are sending a list of many accepted applications, there may potentially be 
+    redundant data sent over network if we use ApplicationSerializer for it
+    '''
+    class Meta:
+        model = Application
+        fields = ('id', 'student','faculty')
+
 class EnterResultSerializer(serializers.Serializer):
     marksheet = serializers.JSONField()
 
@@ -26,4 +47,3 @@ class UploadMarksheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marksheet
         fields = ['file']
-
