@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.models import StudentProfile, ManagementProfile, AppUser
-from .models import Application
+from .models import Application,Marksheet
 
 # delete this serializer if everthing works fine
 # class UpdateStudentProfileSerializer(serializers.ModelSerializer):
@@ -19,6 +19,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = AppUser
         fields = ('email',)
 
+
+
+
 class ApplicationSerializer(serializers.ModelSerializer):
     marksheet = serializers.SerializerMethodField('get_marks')
     def get_marks(self, obj):
@@ -35,3 +38,12 @@ class AcceptedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = ('id', 'student','faculty')
+
+class EnterResultSerializer(serializers.Serializer):
+    marksheet = serializers.JSONField()
+
+
+class UploadMarksheetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Marksheet
+        fields = ['file']

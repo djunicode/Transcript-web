@@ -139,6 +139,10 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 
+MEDIA_URL='/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'Images')
+
+
 
 AUTH_USER_MODEL = 'accounts.AppUser'
 # to check if user has profile
