@@ -1,5 +1,6 @@
 from django.urls import path,include
 from .views import *
+from .views_student import *
 from .views_management import ManagementApplication, AcceptedApplications
 
 urlpatterns = [
@@ -8,5 +9,10 @@ urlpatterns = [
     #Management Dashboard:
     path('management/applications/', ManagementApplication.as_view()),  
     path('management/accepted/', AcceptedApplications.as_view()),
+
+    #Student Dashboard :
+    path('student/applications/', StudentApplication.as_view()),
+    path('scan_marksheet/', ScanMarksheet.as_view(),name="scan_marksheer"),
+    path('Enter_marks/',EnterMarks.as_view(),name="Enter marks"),
 
 ]

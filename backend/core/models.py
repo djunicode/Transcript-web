@@ -1,7 +1,19 @@
 from django.db import models
-from django.db.models.signals import post_save
-
 from accounts.models import StudentProfile, ManagementProfile
+ 
+from django.db.models.signals import post_delete,post_save
+from django.dispatch import receiver
+ 
+
+class Marksheet(models.Model):
+    file = models.ImageField( upload_to='marks' ,null=True,blank=True)
+    
+@receiver(post_delete, sender=Marksheet)
+def submission_delete(sender, instance, **kwargs):
+    instance.file.delete(False) 
+
+
+
 
 class Application(models.Model):
     #ID will be application number
@@ -25,3 +37,4 @@ def save_application(instance, created, **kwargs):
             instance.faculty.rejected+=1
         instance.faculty.save()
 post_save.connect(save_application, sender=Application)
+
