@@ -78,6 +78,7 @@ class EnterMarks(APIView):
     permission_classes = [IsAuthenticated]
     parser_classes=[JSONParser]
     serializer_class = EnterResultSerializer
+
     def post(self,request):
         user = request.user 
         if(StudentProfile.objects.all().filter(user=user).exists()):
@@ -105,6 +106,16 @@ class EnterMarks(APIView):
                 return Response({"message": serializer.error_messages},status=HTTP_400_BAD_REQUEST)
         else:
             return Response({"message": "Profile not created"},status=HTTP_400_BAD_REQUEST)
+
+    def get(self,request):
+        user = request.user
+        if(StudentProfile.objects.all().filter(user=user).exists()):
+            student = StudentProfile.objects.get(user=user)
+            old_marksheet = student.marksheet
+            return Response(old_marksheet,status=HTTP_200_OK)
+        else:
+            return Response({"message": "Profile not created"},status=HTTP_400_BAD_REQUEST)
+
 
 class ScanMarksheet(APIView):
     permission_classes = [IsAuthenticated]

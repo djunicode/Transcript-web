@@ -12,7 +12,7 @@ urlpatterns = [
 
     #Student Dashboard :
     path('student/applications/', StudentApplication.as_view()),
-    path('scan_marksheet/', ScanMarksheet.as_view(),name="scan_marksheer"),
-    path('Enter_marks/',EnterMarks.as_view(),name="Enter marks"),
+    path('student/scan_marksheet/', ScanMarksheet.as_view(),name="scan_marksheer"),
+    path('student/marks/',EnterMarks.as_view(),name="Enter marks"),
 
 ]
