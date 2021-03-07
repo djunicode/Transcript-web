@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme=>({
         drawer: { flexShrink: 0 },
         drawerPaper: {
             minWidth: drawerWidth,
-            backgroundColor: theme.palette.primary.dark
+            backgroundColor: theme.palette.primary.dark,
         },
         svgIcon: {
             display: 'block',
@@ -100,8 +100,7 @@ function SideNav() {
     return (
         <Drawer
         className={classes.drawer}
-        variant="persistent"
-        open={true}
+        variant="permanent"
         classes={{
             paper: classes.drawerPaper,
         }}
