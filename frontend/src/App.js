@@ -1,9 +1,8 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute'
-import SideNav from './components/SideNav';
-import Appbar from './components/Appbar'
+import Template from './components/Template'
 import store from './redux/store'
 import { CssBaseline, ThemeProvider } from '@material-ui/core'
 import { lightTheme } from './theme/lightTheme'
@@ -14,11 +13,15 @@ function App() {
 			<CssBaseline />
 			<ThemeProvider theme={lightTheme}>
 				<BrowserRouter>
-				{/* <SideNav /> */}
-				<Appbar />
-				<Route exact path="/"> Home page </Route>
-				<Route exact path="/login"> Login page </Route>
-				<ProtectedRoute exact path="/test"> Testing Protected Routes </ProtectedRoute>
+					<Switch>
+						{/* Routes outside template */}
+						<Route exact path="/login"> Login page </Route>
+						<Template>
+							{/* Routes inside template */}
+							<Route exact path="/"> Home page </Route>
+							<ProtectedRoute exact path="/test"> Testing Protected Routes </ProtectedRoute>
+						</Template>
+					</Switch>
 				</BrowserRouter>
 			</ThemeProvider>
 		</Provider>

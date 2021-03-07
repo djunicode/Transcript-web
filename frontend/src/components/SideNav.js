@@ -1,4 +1,4 @@
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
+import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import ManSVG from '../assets/svg/man.svg';
 import { ReactComponent as TranscriptSVG} from '../assets/svg/navbar_transcript.svg'
@@ -41,7 +41,7 @@ const navItems = {
 const useStyles = makeStyles(theme=>({
         drawer: { flexShrink: 0 },
         drawerPaper: {
-            minWidth: drawerWidth,
+            width: drawerWidth, minHeight: '100vh', height: '100%',
             backgroundColor: theme.palette.primary.dark,
         },
         svgIcon: {
@@ -98,15 +98,9 @@ function SideNav() {
     // If xs, render drawer?
     
     return (
-        <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-            paper: classes.drawerPaper,
-        }}
-        >
+        <div className={classes.drawerPaper}>
             <Typography variant="h5" align="center">Transcript App</Typography>
-            <img src={ManSVG} className={classes.svgIcon} height="100" width="100" alt="Profile"/>
+            <img src={ManSVG} className={classes.svgIcon} height="100" width="fit-content" alt="Profile"/>
             <div className={classes.container}>
                 <Typography align="center" className={classes.loggedInFont}>Logged Into</Typography>
                 <Typography align="center" className={classes.usernameFont}>Username</Typography>
@@ -150,7 +144,7 @@ function SideNav() {
                 )
                 }                
             </List>
-        </Drawer>
+        </div>
     )
 }
 
