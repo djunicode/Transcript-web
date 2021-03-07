@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
 
-export const lightTheme = createMuiTheme({
+const darkTheme = responsiveFontSizes(createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
@@ -8,5 +8,10 @@ export const lightTheme = createMuiTheme({
       light:"#5A75C8", //buttons
       dark:"linear-gradient(180deg, #225093 0%, #212020 143.9%)", //left side bar
     }
-  }
-});
+  },
+  typography: {
+    fontFamily: 'Dosis',
+  } 
+})
+)
+export {darkTheme}
