@@ -6,6 +6,7 @@ import { ReactComponent as SopSVG} from '../assets/svg/navbar_sop.svg'
 import { ReactComponent as LorSVG} from '../assets/svg/navbar_lor.svg'
 import { ReactComponent as GearSVG} from '../assets/svg/navbar_gear.svg'
 import { Link } from 'react-router-dom';
+import { URLS } from '../consts'
 // import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 
 const drawerWidth = 250;        //From figma
@@ -13,28 +14,30 @@ const navItems = {
     'Transcript': {
         'icon': <TranscriptSVG />,
         'items': [
-            ["View all", "url to view all"], ["Upload marksheet", "url to upload marksheet"], ["Create new", "url to create new"]
+            ["View all", URLS.transcript.viewAll], 
+            ["Upload marksheet", URLS.transcript.uploadMarksheet], 
+            ["Create new", URLS.transcript.createNew],
         ],
         'clickUrl': false
     },
     'SOP': {
         'icon': <SopSVG />,
         'items': [
-            ["Plagarism Checker", "url"]
+            ["Plagarism Checker", URLS.sop.plagarismChecker]
         ],
         'clickUrl': false
     },
     'LOR': {
         'icon': <LorSVG />,
         'items': [
-            ["View all", 'url'], ["Create new", "create new url"]
+            ["View all", URLS.lor.viewAll], ["Create new", URLS.lor.createNew]
         ],
         'clickUrl': false
     },
     'Settings': {
         'icon': <GearSVG />,
         'items': [],
-        'clickUrl': 'settings-url'
+        'clickUrl': URLS.settings
     }
 }
 

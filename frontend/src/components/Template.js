@@ -8,8 +8,8 @@ const useStyles = makeStyles(theme=>({
         paperContainer: {
             padding: theme.spacing(4),
             margin: theme.spacing(3),
-            // height: '100%',
             backgroundColor: fade(theme.palette.primary.main, 0.4), //40%
+            flexGrow: 1
         },
         nestedContainer: {
             flexGrow: 1, display: 'flex', flexDirection:'column'
@@ -28,7 +28,7 @@ function Template({children}) {
                     <Appbar />
                 </Grid>
                 <Grid item xs={12} className={classes.nestedContainer}>
-                    <Paper className={classes.paperContainer} style={{flexGrow: 1}}>
+                    <Paper className={classes.paperContainer}>
                         {children}
                     </Paper>
                 </Grid>
