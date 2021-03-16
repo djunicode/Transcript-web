@@ -9,6 +9,7 @@ import Switch from '@material-ui/core/Switch';
 import { loginAttempt } from '../redux'
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom'
+import { URLS } from "../consts";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -51,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     marginTop: theme.spacing(2),
     
-  }
+  },
+  link: {textDecoration: 'None', color: 'inherit'}
 }));
 
 export default function LoginPage() {
@@ -122,7 +124,7 @@ export default function LoginPage() {
                 <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"2px", fontWeight:200, fontSize:12}}>
                   New Here?
                 </Typography>
-                <Button variant="contained" color="primary" style={{objectFit:"contain"}}>
+                <Button onClick={()=>history.push(URLS.signup)} variant="contained" color="primary" style={{objectFit:"contain"}}>
                   Create an account
                 </Button>
                 <div style={{position:"absolute",bottom:"1%",right:"2%"}}>
@@ -130,7 +132,7 @@ export default function LoginPage() {
                     checked={isFaculty}
                     onChange={()=>setIsFaculty(!isFaculty)}
                   />
-                  <p style={{margin:'0',padding:'0',fontSize:"0.7rem"}}>I'm a teacher</p>
+                  <p style={{margin:'0',padding:'0',fontSize:"0.7rem"}}>I'm a {isFaculty?"teacher":"student"}</p>
                 </div>
               </div>
             </div>
@@ -148,7 +150,7 @@ export default function LoginPage() {
               borderRadius: "1rem",
               boxShadow: "0px 0px 39px 10px rgba(255,255,255,0.09) ",
               margin:"5% 0 5% 0",
-              position:"relative"
+              position:"relative", marginLeft: "auto", marginRight:"auto"
           }}
         >
           <Grid item xs={10} style={{marginTop:"30%"}}>
@@ -159,7 +161,7 @@ export default function LoginPage() {
               Welcome Back
             </Typography>
             <div style={{display:'flex', alignItems:"start", flexDirection:"column",marginTop:"25%",minHeight:"300px",maxHeight:"500px"}}>
-              <form>
+              <form style={{width:'100%'}}>
                 <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
                   USERNAME
                 </Typography>
@@ -190,7 +192,7 @@ export default function LoginPage() {
                   <Typography style={{marginLeft:"auto",marginRight:"auto"}} >
                     New Here?
                   </Typography>
-                  <Button variant="contained" color="primary">
+                  <Button onClick={()=>history.push(URLS.signup)} variant="contained" color="primary">
                     Create an account
                   </Button>
                   <div style={{position:"absolute",bottom:"1%",right:"4%"}}>
@@ -198,7 +200,7 @@ export default function LoginPage() {
                       checked={isFaculty}
                       onChange={()=>setIsFaculty(!isFaculty)}
                     />
-                    <p style={{margin:'0',padding:'0',fontSize:"0.65rem"}}>I'm a teacher</p>
+                    <p style={{margin:'0',padding:'0',fontSize:"0.65rem"}}>I'm a {isFaculty?"teacher":"student"}</p>
                   </div>
                 </div>
               </form>
