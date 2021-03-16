@@ -6,7 +6,6 @@ import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Switch from '@material-ui/core/Switch';
-import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,232 +65,156 @@ export default function LoginPage() {
   const matches = useMediaQuery('(min-width:700px)');
   return (
     // Main
-    <Grid
-      container
-      className={classes.root}
-      justify="center"
-      alignItems="center"
-    >
+    <Grid container className={classes.root} justify="center" alignItems="center">
       {/* Left Half */}
       {matches?
-        <Grid
-        container
-        item
-        xs={4}
-        className={classes.left}
-        justify="center"
-        alignItems="center"
-      >
-        <Grid item ></Grid>
-        <Grid item className={classes.leftLanding} item sm={7}>
-          <Typography variant="h5" style={{height:"30%",width:'100%'}}>
-            <Box fontWeight={700}>
-            Having a tough time verifying pending documents?
-            </Box>
+        <Grid container item xs={4} className={classes.left} justify="center" alignItems="center">
+          <Grid item className={classes.leftLanding} sm={7}>
+            <Typography variant="h5" style={{height:"30%",width:'100%', fontWeight:700}}>
+              Having a tough time verifying pending documents?
             </Typography>
-          <Typography variant="h4" style={{height:"30%",width:'80%'}}>
-          <Box fontWeight={700}>
-            You're at the <u>right place</u>
-          </Box>
+            <Typography variant="h4" style={{height:"30%",width:'80%', fontWeight:700}}>
+              You're at the <u>right place</u>
             </Typography>
-        </Grid>
-        <Grid item ></Grid>
-      </Grid>:
-      <></>   
-    }
+          </Grid>
+        </Grid>:<></>   
+      }
       
       {/* Right Half */}
-      {matches?<Grid
-        container
-        item
-        xs={4}
-        className={classes.right}
-        justify="center"
-        alignItems="center"
-        style={{position:"relative"}}
-      >
-          <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",borderRadius:"50%",background:"linear-gradient(to right,#225093,white)",top:"15%",right:"5%"}}></div>
-          <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",background:"linear-gradient(to right,#225093,white)",top:"5%",right:"20%",transform:"rotate(15deg)"}}></div>
-        <Grid xs={7}>
-          <Typography variant="h6" style={{marginBottom:"14%",marginTop:"10%"}}>
-            <Box fontWeight={700}>
+    {matches?<Grid container item xs={4} className={classes.right}
+        justify="center" alignItems="center" style={{position:"relative"}}>
+        <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",borderRadius:"50%",background:"linear-gradient(to right,#225093,white)",top:"15%",right:"5%"}}>
+        </div>
+        <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",background:"linear-gradient(to right,#225093,white)",top:"5%",right:"20%",transform:"rotate(15deg)"}}>
+        </div>
+        <Grid item xs={7}>
+          <Typography variant="h6" style={{marginBottom:"14%",marginTop:"10%", fontWeight:700}}>
             SIGN UP
-            </Box>
             </Typography>
-          <Typography variant='caption'>
-            <Box fontWeight={500}>
-            USERNAME 
-            </Box>        
+          <Typography variant='caption' style={{fontWeight:500}}>
+            USERNAME
           </Typography>
-          
           <InputBase
             label="USER NAME"
             fullWidth
-            margin="normal"
             className={classes.inputBase}
           />
-          <Typography variant="caption">
-            <Box fontWeight={500}>
+          <Typography variant="caption" style={{fontWeight:500}}>
             PASSWORD
-            </Box>
-            </Typography>
+          </Typography>
           <InputBase
             label="password"
             fullWidth
-            margin="normal"
             className={classes.inputBase}
           />
-          <Typography variant="caption">
-            <Box fontWeight={500}>
+          <Typography variant="caption" style={{fontWeight:500}}>
             CONFIRM PASSWORD
-            </Box>
-            </Typography>
+          </Typography>
           <InputBase
             label="confirmpassword"
             fullWidth
-            margin="normal"
             className={classes.inputBase}
           />
-
-        
           <div style={{display:"flex",justifyContent:"center",marginTop:"14%"}}>
-          <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto"}}>
+            <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto"}}>
               <Button variant="contained" color="primary" style={{objectFit:"contain",maxHeight:"40%"}}>
                 Create my account
               </Button>
-              <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"2px"}}>
-                <Box fontWeight={200} fontSize={12}>
+              <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"2px", fontWeight:200, fontSize:12}}>
                 Have an account?
-                </Box>
               </Typography>
-              <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px"}}>
-                <Box fontWeight={200} fontSize={12}>
+              <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px", fontWeight:200, fontSize:12}}>
                 Login
-                </Box>
               </Typography>
-              
               <div style={{position:"absolute",bottom:"1%",right:"2%"}}>
-              <Switch
-              
-              checked={state.checkedA}
-              onChange={handleChange}
-              name="checkedA"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
-            <p style={{margin:'0',padding:'0',fontSize:"0.7rem"}}>I'm a teacher</p>
-            </div>
+                <Switch
+                checked={state.checkedA}
+                onChange={handleChange}
+                name="checkedA"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                />
+                <p style={{margin:'0',padding:'0',fontSize:"0.7rem"}}>I'm a teacher</p>
               </div>
             </div>
+          </div>
         </Grid>
       </Grid>
       :
-
-
       // Mobile  view
-
       <Grid container style={{background:"linear-gradient(to right,#255093,pink)"}}>
-      <Grid container item xs={1}></Grid>
-      <Grid
-        container
-        item
-        xs={10}
-        
-        justify="center"
-        style={{
-            backgroundColor: "#212020",
-            color: "white",
-            minHeight:"105vh",
-            borderRadius: "1rem",
-            boxShadow: "0px 0px 39px 10px rgba(255,255,255,0.09) ",
-            margin:"5% 0 5% 0",
-            position:"relative"
-        }}
-      >
-        <Grid item xs={10} style={{marginTop:"30%"}}>
-        <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",borderRadius:"50%",background:"linear-gradient(to right,#225093,white)",top:"24%",right:"6%"}}></div>
-        <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",background:"linear-gradient(to right,#225093,white)",top:"15%",right:"7%",transform:"rotate(15deg)"}}></div>
-        <Typography style={{fontSize:"1.2rem",lineHeight:"1.4rem",maxWidth:"80%"}} >
-            <Box fontWeight={700}>
-            Having a tough time verifying pending documents?
-            </Box>
-          </Typography>
-          <Typography style={{fontSize:"2.1rem",maxWidth:"80%"}} >
-          <Box fontWeight={700}>
-            You're at the <u>right place</u>
-          </Box>
-          </Typography>
-          <div style={{display:'flex', alignItems:"start", flexDirection:"column",marginTop:"25%",minHeight:"300px",maxHeight:"500px"}}>
-          <Typography >
-            <Box fontWeight={500} fontSize="0.8rem">
-            USERNAME 
-            </Box>  
-          </Typography>
-          
-          <InputBase
-            label="USER NAME"
-            fullWidth
-            margin="normal"
-            className={classes.appInputBase}
-            style={{marginBottom:"10%"}}
-          />
-          <Typography>
-            <Box fontWeight={500} fontSize="0.8rem">
-              PASSWORD
-            </Box>
-          </Typography>
-          <InputBase
-            label="PASSWORD"
-            fullWidth
-            margin="normal"
-            className={classes.appInputBase}
-            
-          />
-          <Typography>
-            <Box fontWeight={500} fontSize="0.8rem">
-              CONFIRM PASSWORD
-            </Box>
-          </Typography>
-          <InputBase
-            label="CONFIRM PASSWORD"
-            fullWidth
-            margin="normal"
-            className={classes.appInputBase}
-            
-          />
-          <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto",minHeight:"12rem",marginTop:"10%"}}>
-              <Button variant="contained" color="primary" style={{height:"20%"}}>
-                Create my account
-              </Button>
-              <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"2px"}}>
-                <Box fontWeight={200} fontSize={12}>
-                Have an account?
-                </Box>
-              </Typography>
-              <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px"}}>
-                <Box fontWeight={200} fontSize={12}>
-                Login
-                </Box>
-              </Typography>
-              <div style={{position:"absolute",bottom:"1%",right:"4%"}}>
-              <Switch
-              
-              checked={state.checkedA}
-              onChange={handleChange}
-              name="checkedA"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
-            <p style={{margin:'0',padding:'0',fontSize:"0.65rem"}}>I'm a teacher</p>
+        <Grid container item xs={10} justify="center"
+          style={{
+              backgroundColor: "#212020",
+              color: "white",
+              minHeight:"105vh",
+              borderRadius: "1rem",
+              boxShadow: "0px 0px 39px 10px rgba(255,255,255,0.09) ",
+              margin:"5% 0 5% 0",
+              position:"relative"
+          }}
+        >
+          <Grid item xs={10} style={{marginTop:"30%"}}>
+            <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",borderRadius:"50%",background:"linear-gradient(to right,#225093,white)",top:"24%",right:"6%"}}>
             </div>
-          </div>
-          </div>
-
-          
+            <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",background:"linear-gradient(to right,#225093,white)",top:"15%",right:"7%",transform:"rotate(15deg)"}}>
+            </div>
+              <Typography style={{fontSize:"1.2rem",lineHeight:"1.4rem",maxWidth:"80%", fontWeight:700}} >
+                Having a tough time verifying pending documents?
+              </Typography>
+              <Typography style={{fontSize:"2.1rem",maxWidth:"80%", fontWeight:700}} >
+                You're at the <u>right place</u>
+              </Typography>
+              <div style={{display:'flex', alignItems:"start", flexDirection:"column",marginTop:"25%",minHeight:"300px",maxHeight:"500px"}}>
+                <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
+                  USERNAME
+                </Typography>
+                <InputBase
+                  label="USER NAME"
+                  fullWidth
+                  className={classes.appInputBase}
+                  style={{marginBottom:"10%"}}
+                />
+                <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
+                    PASSWORD
+                </Typography>
+                <InputBase
+                  label="PASSWORD"
+                  fullWidth
+                  className={classes.appInputBase}
+                />
+                <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
+                  CONFIRM PASSWORD
+                </Typography>
+                <InputBase
+                  label="CONFIRM PASSWORD"
+                  fullWidth
+                  className={classes.appInputBase}
+                />
+                <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto",minHeight:"12rem",marginTop:"10%"}}>
+                  <Button variant="contained" color="primary" style={{height:"20%"}}>
+                    Create my account
+                  </Button>
+                  <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"2px", fontWeight:200, fontSize:12}}>
+                    Have an account?
+                  </Typography>
+                  <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px", fontWeight:200, fontSize:12}}> 
+                    Login
+                  </Typography>
+                  <div style={{position:"absolute",bottom:"1%",right:"4%"}}>
+                    <Switch
+                      checked={state.checkedA}
+                      onChange={handleChange}
+                      name="checkedA"
+                      inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    />
+                    <p style={{margin:'0',padding:'0',fontSize:"0.65rem"}}>I'm a teacher</p>
+                  </div>
+                </div>
+              </div>
+          </Grid>
         </Grid>
       </Grid>
-      <Grid container item xs={1}></Grid>
-      </Grid>
-      }
-      
+    }
     </Grid>
   );
 }
