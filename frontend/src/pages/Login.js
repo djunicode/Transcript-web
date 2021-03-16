@@ -6,10 +6,12 @@ import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Switch from '@material-ui/core/Switch';
-import { loginAttempt } from '../redux'
+import { loginFail, loginSuccess } from '../redux'
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom'
-import { URLS } from "../consts";
+import { API_BASE, URLS } from "../consts";
+import axios from "axios";
+import { ValidateEmail } from '../utils'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -62,11 +64,27 @@ export default function LoginPage() {
   const [isFaculty, setIsFaculty] = useState(false)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [emailErr, setEmailErr] = useState(false)
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:700px)');
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(loginAttempt(username, password, history))
+    setEmailErr(false)
+    if(!ValidateEmail(username)) { setEmailErr(true); return }
+    axios.post(`${API_BASE}/api/auth/jwt/create/`, {
+      email: username,
+      password: password
+    })
+    .then(res=>{
+      dispatch(loginSuccess(res.data));
+      history.push(URLS.home)
+    })
+    .catch(err=>{
+      dispatch(loginFail())
+      if(err.response.status===401){
+        //display invalid credentials on login
+      }
+    })
   }
   return (
     // Main
@@ -100,6 +118,7 @@ export default function LoginPage() {
               label="USERNAME"
               fullWidth
               value={username}
+              error={emailErr}
               onChange={(e)=>setUsername(e.target.value)}
               className={classes.inputBase}
             />
@@ -170,6 +189,7 @@ export default function LoginPage() {
                   fullWidth
                   className={classes.appInputBase}
                   value={username}
+                  error={emailErr}
                   onChange={(e)=>setUsername(e.target.value)}
                   style={{marginBottom:"10%"}}
                 />

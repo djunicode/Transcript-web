@@ -10,6 +10,7 @@ import axios from "axios";
 import { API_BASE, URLS } from "../consts";
 import {Link, useHistory} from "react-router-dom"
 import { MenuItem, Select } from "@material-ui/core";
+import { ValidateEmail, ValidatePhone, ValidateAY} from "../utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,8 +80,13 @@ export default function SignupPage() {
   const [admission_year, setAdmissionYear] = useState("")
   const [formPage, setFormPage] = useState(0)
   const [open, setOpen] = useState(false) //open select
+  const temp = {username:false, passwords: false, name: false, user_id:false, contact: false, dept: false, ay:false}
+  const [errors, setErrors] = useState({...temp})
   const history = useHistory()
+
   const handleSubmit = () => {
+    if(!ValidateEmail(username)){ setErrors({...errors, username:true }); return}
+    if(password!==confirmPw || password==="") { setErrors({...errors, passwords:true }); return}
     const data = {
       is_management: isFaculty, email: username, password,
       re_password:confirmPw, 
@@ -98,7 +104,27 @@ export default function SignupPage() {
     }
     axios.post(`${API_BASE}/api/auth/users/`, data)
     .then(res => history.push(URLS.login))
-    .catch(err => console.log(err))
+    .catch(err => {
+      if(err.response.status===400){
+        //Probably weak password
+      }
+    })
+  }
+  const handleNext = () => {
+    setErrors({...temp})
+    if(formPage===0){  
+      if(name===""){ setErrors({...errors, name:true}); return }
+      if(user_id===""){ setErrors({...errors, user_id:true}); return }
+      if(!ValidatePhone(contact)){ setErrors({...errors, contact:true}); return }
+      if(isFaculty)
+        setFormPage(2)
+      else
+        setFormPage(1)
+    } else if (formPage===1) {
+      if(!isFaculty && !ValidateAY(admission_year)){ setErrors({...errors, ay:true}); return }
+      if(!isFaculty && department===""){ setErrors({...errors, dept:true}); return }
+      setFormPage(2)
+    }
   }
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:700px)');
@@ -131,7 +157,7 @@ export default function SignupPage() {
             SIGN UP
           </Typography>
           {
-            formPage===1?<>
+            formPage===2?<>
               <Typography variant='caption' style={{fontWeight:500}}>
                 USERNAME
               </Typography>
@@ -164,8 +190,31 @@ export default function SignupPage() {
                 fullWidth
                 className={classes.inputBase}
               />
-            </>:
-            <>
+            </>:formPage===1?<>
+                  <Typography variant="caption" style={{fontWeight:500}}>
+                    ADMISSION YEAR
+                  </Typography>
+                  <InputBase
+                    label="ADMISSION YEAR"
+                    value={admission_year}
+                    onChange={(e)=>setAdmissionYear(e.target.value)}
+                    fullWidth
+                    className={classes.inputBase}
+                  />
+                  <Typography variant="caption" style={{fontWeight:500, marginRight:12}}>
+                    DEPARTMENT
+                  </Typography>
+                  <Select
+                    open={open}
+                    onClose={()=>setOpen(false)}
+                    onOpen={()=>setOpen(true)}
+                    value={department}
+                    onChange={(e)=>setDepartment(e.target.value)}
+                    className={classes.inputBase}
+                  >
+                    {items.map((item, idx)=><MenuItem key={idx} value={item[0]}>{item[1]}</MenuItem>)}
+                  </Select>
+              </> : <>
               <Typography variant='caption' style={{fontWeight:500}}>
                 NAME
               </Typography>
@@ -196,49 +245,17 @@ export default function SignupPage() {
                 fullWidth
                 className={classes.inputBase}
               />
-              {
-                !isFaculty?
-                <>
-                  <Typography variant="caption" style={{fontWeight:500}}>
-                    ADMISSION YEAR
-                  </Typography>
-                  <InputBase
-                    label="ADMISSION YEAR"
-                    value={admission_year}
-                    onChange={(e)=>setAdmissionYear(e.target.value)}
-                    fullWidth
-                    className={classes.inputBase}
-                  />
-                  <Typography variant="caption" style={{fontWeight:500, marginRight:12}}>
-                    DEPARTMENT
-                  </Typography>
-                  <Select
-                    open={open}
-                    onClose={()=>setOpen(false)}
-                    onOpen={()=>setOpen(true)}
-                    value={department}
-                    onChange={(e)=>setDepartment(e.target.value)}
-                    className={classes.inputBase}
-                  >
-                    {items.map(item=><MenuItem value={item[0]}>{item[1]}</MenuItem>)}
-                  </Select>
-                  
-                </>
-                : null
-              }
             </>
-
-          }
-            
+          }  
           <div style={{display:"flex",justifyContent:"center",marginTop:"14%"}}>
             <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto"}}>
               {
-              formPage===1?
+              formPage===2?
               <Button onClick={handleSubmit} variant="contained" color="primary" style={{objectFit:"contain",maxHeight:"40%"}}>
                 Create my account
               </Button>
               :
-              <Button onClick={()=>setFormPage(1)} variant="contained" color="primary" style={{objectFit:"contain",maxHeight:"40%"}}>
+              <Button onClick={handleNext} variant="contained" color="primary" style={{objectFit:"contain",maxHeight:"40%"}}>
                 Next
               </Button>
               }
@@ -246,7 +263,7 @@ export default function SignupPage() {
                 Have an account?
               </Typography>
               <Link to={URLS.login} className={classes.link}>
-                <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px", fontWeight:200, fontSize:12}}>
+                <Typography align="center" style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px", fontWeight:200, fontSize:12}}>
                   Login
                 </Typography>
               </Link>
@@ -292,7 +309,7 @@ export default function SignupPage() {
             </Typography>
             <div style={{display:'flex', alignItems:"start", flexDirection:"column",marginTop:"25%",minHeight:"300px",maxHeight:"500px"}}>
               {
-                formPage===1?<>
+                formPage===2?<>
                 <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
                   USERNAME
                 </Typography>
@@ -326,7 +343,36 @@ export default function SignupPage() {
                   fullWidth
                   className={classes.appInputBase}
                 />
-                </>:
+                </>
+                :
+                formPage===1?
+                <>
+                  <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
+                    ADMISSION YEAR
+                  </Typography>
+                  <InputBase
+                    label="ADMISSION YEAR"
+                    value={admission_year}
+                    onChange={(e)=>setAdmissionYear(e.target.value)}
+                    fullWidth
+                    className={classes.appInputBase}
+                  />
+                  <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
+                    DEPARTMENT
+                  </Typography>
+                  <Select
+                    open={open}
+                    onClose={()=>setOpen(false)}
+                    onOpen={()=>setOpen(true)}
+                    value={department}
+                    onChange={(e)=>setDepartment(e.target.value)}
+                    fullWidth
+                    className={classes.appInputBase}
+                  >
+                    {items.map((item, idx)=><MenuItem key={idx} value={item[0]}>{item[1]}</MenuItem>)}
+                  </Select>
+                </>
+                :
                 <>
                 <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
                   NAME
@@ -359,46 +405,17 @@ export default function SignupPage() {
                   fullWidth
                   className={classes.appInputBase}
                 />
-                {
-                  !isFaculty?
-                  <>
-                  <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
-                    ADMISSION YEAR
-                  </Typography>
-                  <InputBase
-                    label="ADMISSION YEAR"
-                    value={admission_year}
-                    onChange={(e)=>setAdmissionYear(e.target.value)}
-                    fullWidth
-                    className={classes.appInputBase}
-                  />
-                  <Typography style={{fontWeight:500, fontSize:"0.8rem"}}>
-                    DEPARTMENT
-                  </Typography>
-                  <Select
-                    open={open}
-                    onClose={()=>setOpen(false)}
-                    onOpen={()=>setOpen(true)}
-                    value={department}
-                    onChange={(e)=>setDepartment(e.target.value)}
-                    fullWidth
-                    className={classes.appInputBase}
-                  >
-                    {items.map(item=><MenuItem value={item[0]}>{item[1]}</MenuItem>)}
-                  </Select>
-                  </>:null
-                }
                 </>
               }
               
               <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto",minHeight:"12rem",marginTop:"10%"}}>
                 {
-                formPage===1?
+                formPage===2?
                 <Button onClick={handleSubmit} variant="contained" color="primary" style={{height:"20%"}}>
                   Create my account
                 </Button>
                 :
-                <Button onClick={()=>setFormPage(1)} variant="contained" color="primary" style={{height:"20%"}}>
+                <Button onClick={handleNext} variant="contained" color="primary" style={{height:"20%"}}>
                   Next
                 </Button>
                 }
@@ -406,7 +423,7 @@ export default function SignupPage() {
                   Have an account?
                 </Typography>
                 <Link to={URLS.login} className={classes.link}>
-                <Typography style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px", fontWeight:200, fontSize:12}}> 
+                <Typography align="center" style={{marginLeft:"auto",marginRight:"auto",marginTop:"0px", fontWeight:200, fontSize:12}}> 
                   Login
                 </Typography>
                 </Link>
