@@ -1,13 +1,15 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import ProtectedRoute from './components/ProtectedRoute'
+import ProtectedRoute from './components/ProtectedRoute'
 // import Template from './components/Template'
 import store from './redux/store'
 import { CssBaseline, ThemeProvider } from '@material-ui/core'
 import { lightTheme } from './theme/lightTheme'
 import ErrorPage from './pages/ErrorPage';
 import { URLS } from './consts'
+import Login from './pages/Login'
+import Signup from './pages/SignUp'
 function App() {
 	return (
 		<Provider store={store}>
@@ -15,7 +17,8 @@ function App() {
 			<ThemeProvider theme={lightTheme}>
 				<BrowserRouter>
 					<Switch>
-						<Route exact path={URLS.login}> Login page </Route>
+						<Route exact path={URLS.login}> <Login/> </Route>
+						<Route exact path={URLS.signup}> <Signup /> </Route>
 						<Route exact path={URLS.home}> some home page</Route>
 						<ProtectedRoute exact path="/test"> Testing Protected Routes </ProtectedRoute>
 						{/* Catch all */}
