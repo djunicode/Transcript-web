@@ -16,5 +16,5 @@ const URLS = {
     },
     settings: "/accounts/settings",
 }
-
-export { URLS }
+const API_BASE = 'http://unicode2021.pythonanywhere.com'
+export { URLS, API_BASE }
