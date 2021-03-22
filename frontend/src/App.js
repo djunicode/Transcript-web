@@ -10,6 +10,7 @@ import ErrorPage from './pages/ErrorPage';
 import { URLS } from './consts'
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
+import TranscriptGridItem from './components/TranscriptGridItem';
 function App() {
 	return (
 		<Provider store={store}>
@@ -19,7 +20,7 @@ function App() {
 					<Switch>
 						<Route exact path={URLS.login}> <Login/> </Route>
 						<Route exact path={URLS.signup}> <Signup /> </Route>
-						<Route exact path={URLS.home}> some home page</Route>
+						<Route exact path={URLS.home}> <TranscriptGridItem title="transcript" subtitle="60004190011"/> </Route>
 						<ProtectedRoute exact path="/test"> Testing Protected Routes </ProtectedRoute>
 						{/* Catch all */}
 						<Route path="*" exact>
