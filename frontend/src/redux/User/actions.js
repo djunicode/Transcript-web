@@ -1,6 +1,4 @@
-import axios from 'axios'
-import { API_BASE, URLS } from '../../consts'
-import {LOGIN_SUCCESS, LOGIN_FAIL} from './types'
+import {LOGIN_SUCCESS, LOGIN_FAIL, FETCH_USER_DATA_SUCCESS, FETCH_USER_DATA_FAIL} from './types'
 
 const loginSuccess = (data) => ({
     type: LOGIN_SUCCESS,
@@ -11,4 +9,12 @@ const loginFail = () => ({
     type: LOGIN_FAIL
 })
 
-export {loginSuccess, loginFail}
+const fetchUserDataSuccess = (data) => ({
+    type: FETCH_USER_DATA_SUCCESS,
+    payload: data
+})
+const fetchUserDataFail = () => ({
+    type: FETCH_USER_DATA_FAIL
+})
+
+export {loginSuccess, loginFail, fetchUserDataSuccess, fetchUserDataFail}
