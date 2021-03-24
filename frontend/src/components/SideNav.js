@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { URLS } from '../consts'
 // import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 
-const drawerWidth = 250;        //From figma
+const drawerWidth = '100%';
 const navItems = {
     'Transcript': {
         'icon': <TranscriptSVG />,
