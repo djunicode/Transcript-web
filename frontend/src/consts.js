@@ -3,7 +3,7 @@ const URLS = {
     login: "/accounts/login",
     signup: "/accounts/signup",
     transcript: {
-        viewAll: "/transcript/view-all",
+        viewAll: "/",   //View all is home page for logged in student user
         uploadMarksheet: "/transcript/upload-marksheet",
         createNew: "/transcript/apply",
     },

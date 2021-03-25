@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme=>({
             padding: theme.spacing(4),
             margin: theme.spacing(3),
             backgroundColor: fade(theme.palette.primary.main, 0.4), //40%
-            flexGrow: 1
+            flexGrow: 1, borderRadius: theme.spacing(3)
         },
         nestedContainer: {
             flexGrow: 1, display: 'flex', flexDirection:'column'
@@ -19,15 +19,15 @@ const useStyles = makeStyles(theme=>({
 function Template({children}) {
     const classes = useStyles()
     return (
-        <Grid container xs={12}>
-            <Grid item>
+        <Grid container>
+            <Grid item xs={12} sm={4} md={3} lg={2}>
                 <SideNav />
             </Grid>
-            <Grid item className={classes.nestedContainer}>
+            <Grid item xs={12} sm={8} md={9} lg={10} className={classes.nestedContainer}>
                 <Grid item>
                     <Appbar />
                 </Grid>
-                <Grid item xs={12} className={classes.nestedContainer}>
+                <Grid item className={classes.nestedContainer}>
                     <Paper className={classes.paperContainer}>
                         {children}
                     </Paper>

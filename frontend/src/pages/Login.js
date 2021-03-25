@@ -6,7 +6,7 @@ import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Switch from '@material-ui/core/Switch';
-import { loginFail, loginSuccess } from '../redux'
+import { fetchUserDataFail, fetchUserDataSuccess, loginFail, loginSuccess } from '../redux'
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import { API_BASE, URLS } from "../consts";
@@ -71,15 +71,22 @@ export default function LoginPage() {
     e.preventDefault()
     setEmailErr(false)
     if(!ValidateEmail(username)) { setEmailErr(true); return }
+    //attempt login
     axios.post(`${API_BASE}/api/auth/jwt/create/`, {
       email: username,
       password: password
     })
     .then(res=>{
+      //login success
       dispatch(loginSuccess(res.data));
+      //Fetch logged in user data
+      axios.get(`${API_BASE}/api/auth/users/me/`, {headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}})
+      .then(res=>dispatch(fetchUserDataSuccess(res.data)))
+      .catch(err=>dispatch(fetchUserDataFail()))
       history.push(URLS.home)
     })
     .catch(err=>{
+      //login fail
       dispatch(loginFail())
       if(err.response.status===401){
         //display invalid credentials on login
