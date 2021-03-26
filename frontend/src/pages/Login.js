@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Switch from '@material-ui/core/Switch';
 import { fetchUserDataFail, fetchUserDataSuccess, loginFail, loginSuccess } from '../redux'
@@ -55,7 +56,42 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     
   },
-  link: {textDecoration: 'None', color: 'inherit'}
+  link: {textDecoration: 'None', color: 'inherit'},
+  // left landing text
+  leftGridTypo:{
+    height:"30%",width:'80%', fontWeight:700
+  },
+  // web button group outer div
+  webButtonOuter:{
+    display:"flex",justifyContent:"center",marginTop:"14%"
+  },
+  // web button group inner div
+  webButtonInner:{
+    display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto"
+  },
+  // mobile view main grid
+  mobileGrid:{
+    backgroundColor: "#212020",
+    color: "white",
+    minHeight:"105vh",
+    borderRadius: "1rem",
+    boxShadow: "0px 0px 39px 10px rgba(255,255,255,0.09) ",
+    margin:"5% 0 5% 0",
+    position:"relative", marginLeft: "auto", marginRight:"auto"
+  },
+  // mobile background
+  mobBackground:{
+    background:"linear-gradient(to right,#255093,pink)"
+  },
+  // mobile button group
+  mobButtonGrp:{
+    display:'flex',
+    flexDirection:"column",
+    marginLeft:"auto",
+    marginRight:"auto",
+    minHeight:"12rem",
+    marginTop:"40%"
+  }
 }));
 
 export default function LoginPage() {
@@ -100,10 +136,10 @@ export default function LoginPage() {
       {matches?
         <Grid container item xs={4} className={classes.left} justify="center" alignItems="center">
           <Grid item className={classes.leftLanding} sm={5}>
-            <Typography variant="h5" style={{height:"30%",width:'80%', fontWeight:700}}>
+            <Typography variant="h5" className={classes.leftGridTypo}>
               Hello there {isFaculty?"Teacher":"Student"}
             </Typography>
-            <Typography variant="h4" style={{height:"30%",width:'80%', fontWeight:700}}>
+            <Typography variant="h4" className={classes.leftGridTypo}>
                 Welcome Back
             </Typography>
           </Grid>
@@ -142,8 +178,8 @@ export default function LoginPage() {
             />
 
 
-            <div style={{display:"flex",justifyContent:"center",marginTop:"14%"}}>
-              <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto"}}>
+            <div className={classes.webButtonOuter}>
+              <div className={classes.webButtonInner}>
                 <Button onClick={handleSubmit} variant="contained" color="primary" style={{objectFit:"contain",maxHeight:"25%"}}>
                   Login
                 </Button>
@@ -167,17 +203,9 @@ export default function LoginPage() {
       </Grid>
       :
       // Mobile web view
-      <Grid container style={{background:"linear-gradient(to right,#255093,pink)"}}>
+      <Grid container className={classes.mobBackground}>
         <Grid container item xs={10} justify="center"
-          style={{
-              backgroundColor: "#212020",
-              color: "white",
-              minHeight:"105vh",
-              borderRadius: "1rem",
-              boxShadow: "0px 0px 39px 10px rgba(255,255,255,0.09) ",
-              margin:"5% 0 5% 0",
-              position:"relative", marginLeft: "auto", marginRight:"auto"
-          }}
+          className={classes.mobileGrid}
         >
           <Grid item xs={10} style={{marginTop:"30%"}}>
             <Typography style={{fontSize:"1.2rem",lineHeight:"1.4rem", fontWeight:700}} >
@@ -212,7 +240,7 @@ export default function LoginPage() {
                   className={classes.appInputBase}
                 />
               
-                <div style={{display:'flex',flexDirection:"column",marginLeft:"auto",marginRight:"auto",minHeight:"12rem",marginTop:"40%"}}>
+                <div className={classes.mobButtonGrp}>
                   <Button onClick={handleSubmit} variant="contained" color="primary" style={{height:"20%"}}>
                     Login
                   </Button>

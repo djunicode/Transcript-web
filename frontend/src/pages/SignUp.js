@@ -55,7 +55,29 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     
   },
-  link: {textDecoration: 'None', color: 'inherit'}
+  link: {textDecoration: 'None', color: 'inherit'},
+  // having a tough time typo
+  havTypography:{
+    height:"30%",width:'100%', fontWeight:700
+  },
+  // you are at the typo
+  youTypography:{
+    height:"30%",width:'80%', fontWeight:700
+  },
+  // mobile view grid
+  mobGrid:{
+    backgroundColor: "#212020",
+    color: "white",
+    minHeight:"105vh",
+    borderRadius: "1rem",
+    boxShadow: "0px 0px 39px 10px rgba(255,255,255,0.09) ",
+    margin:"5% 0 5% 0",
+    position:"relative", marginLeft: "auto", marginRight:"auto"
+  },
+  // mobile Background
+  mobBackground:{
+    background:"linear-gradient(to right,#255093,pink)"
+  }
 }));
 const items = [
   ['CS', 'COMPUTERS'],
@@ -135,10 +157,10 @@ export default function SignupPage() {
       {matches?
         <Grid container item xs={4} className={classes.left} justify="center" alignItems="center">
           <Grid item className={classes.leftLanding} sm={7}>
-            <Typography variant="h5" style={{height:"30%",width:'100%', fontWeight:700}}>
+            <Typography variant="h5" className={classes.havTypography}>
               Having a tough time verifying pending documents?
             </Typography>
-            <Typography variant="h4" style={{height:"30%",width:'80%', fontWeight:700}}>
+            <Typography variant="h4" className={classes.youTypography}>
               You're at the <u>right place</u>
             </Typography>
           </Grid>
@@ -284,18 +306,8 @@ export default function SignupPage() {
       </Grid>
       :
       // Mobile  view
-      <Grid container style={{background:"linear-gradient(to right,#255093,pink)"}}>
-        <Grid container item xs={10} justify="center"
-          style={{
-              backgroundColor: "#212020",
-              color: "white",
-              minHeight:"105vh",
-              borderRadius: "1rem",
-              boxShadow: "0px 0px 39px 10px rgba(255,255,255,0.09) ",
-              margin:"5% 0 5% 0",
-              position:"relative", marginLeft: "auto", marginRight:"auto"
-          }}
-        >
+      <Grid container className={classes.mobBackground}>
+        <Grid container item xs={10} justify="center" className={classes.mobGrid}>
           <Grid item xs={10} style={{marginTop:"30%"}}>
             <div style={{position:"absolute",minHeight:"50px",minWidth:"50px",borderRadius:"50%",background:"linear-gradient(to right,#225093,white)",top:"24%",right:"6%"}}>
             </div>
