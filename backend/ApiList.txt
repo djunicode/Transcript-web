@@ -1,0 +1,66 @@
+1) User creation 
+request :- http://127.0.0.1:8000/account/auth/users/
+type    :- POST
+inputs  :- {        
+                "email":"",
+                "is_management":,
+                "password":"",
+                "re_password":""
+            }
+output  :- {
+                "is_management": ,
+                "email": "",
+                "id":
+            }
+
+2) User Activation
+request :-  http://127.0.0.1:8000/account/auth/users/activation/
+type    :-  POST
+            Send a mail on given email 
+            http://127.0.0.1:8000/activate/(uid)/{token}
+inputs  :-  {
+                "uid":"",
+                "token":""
+            }
+
+3) User Login using JWT 
+request :- http://127.0.0.1:8000/account/auth/jwt/create/
+type    :- POST
+inputs  :- {
+                "email":"",
+                "password":""
+            }
+output  :- {
+                "refresh": "",
+                "access": ""
+            }
+
+4) User info
+request :- http://127.0.0.1:8000/account/auth/me/
+type    :- Get
+output  :- {
+                "email": "",
+                "is_management": ,
+                "profile_created": 
+            }
+
+5) User Reset password
+request :-  http://127.0.0.1:8000/account/auth/users/reset_password/
+type    :-  POST
+inputs  :-  {
+                "email":""
+            }
+output  :-  send a mail on given email
+            http://127.0.0.1:8000/password/reset/confirm/{uid}/{token}
+
+
+6) Confirm Reset Password
+request :-  http://127.0.0.1:8000/account/auth/users/reset_password_confirm/
+type    :-  POST
+inputs  :-  {
+                "uid":"",
+                "token":"",
+                "new_password":"",
+                "re_new_password":""
+            }
+    
