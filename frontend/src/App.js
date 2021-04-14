@@ -11,6 +11,7 @@ import { URLS } from './consts'
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
 import StudentViewall from './pages/StudentViewall';
+import Activation from './pages/Activation';
 function App() {
 	return (
 		<Provider store={store}>
@@ -20,6 +21,7 @@ function App() {
 					<Switch>
 						<Route exact path={URLS.login}> <Login/> </Route>
 						<Route exact path={URLS.signup}> <Signup /> </Route>
+						<Route exact path={URLS.activate}><Activation /></Route>
 						<Route exact path={URLS.home}> <StudentViewall /> </Route>
 						<ProtectedRoute exact path="/test"> Testing Protected Routes </ProtectedRoute>
 						{/* Catch all */}
