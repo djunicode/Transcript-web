@@ -1,9 +1,11 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
+from rest_framework.authtoken.models import Token
 from .models import ManagementProfile, StudentProfile
 from .serializers import ManagementProfileSerializer, StudentProfileSerializer
 from djoser.views import UserViewSet
@@ -58,3 +60,10 @@ class UserViewSet(UserViewSet):
             DjoserSettings.EMAIL.activation(self.request, context).send(to)
         elif DjoserSettings.SEND_CONFIRMATION_EMAIL:
             DjoserSettings.EMAIL.confirmation(self.request, context).send(to)
+class PermLoginView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request, format=None):
+        user = authenticate(username=request.data['email'], password=request.data['password'])
+        if user is not None:
+            return Response({"token": Token.objects.get(user=user).key}, status=status.HTTP_200_OK)
+        return Response({"token": None}, status=status.HTTP_200_OK)

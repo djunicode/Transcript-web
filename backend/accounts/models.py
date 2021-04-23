@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.db.models.signals import post_save
+from django.conf import settings
+from rest_framework.authtoken.models import Token
 import jsonfield
-
 
 # Create your models here.
 #                    User Starts                    #
@@ -102,3 +104,8 @@ class ManagementProfile(models.Model):
     def __str__(self):
         return self.name
 
+def save_user(instance, created, **kwargs):
+    if created:
+        Token.objects.create(user=instance)   
+
+post_save.connect(save_user, sender=settings.AUTH_USER_MODEL)
