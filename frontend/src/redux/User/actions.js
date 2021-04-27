@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGIN_FAIL, FETCH_USER_DATA_SUCCESS, FETCH_USER_DATA_FAIL} from './types'
+import {LOGIN_SUCCESS, LOGIN_FAIL, FETCH_USER_DATA_SUCCESS, FETCH_USER_DATA_FAIL, LOGOUT} from './types'
 
 const loginSuccess = (data) => ({
     type: LOGIN_SUCCESS,
@@ -17,4 +17,8 @@ const fetchUserDataFail = () => ({
     type: FETCH_USER_DATA_FAIL
 })
 
-export {loginSuccess, loginFail, fetchUserDataSuccess, fetchUserDataFail}
+const logout = () => ({
+    type: LOGOUT
+})
+
+export {loginSuccess, loginFail, fetchUserDataSuccess, fetchUserDataFail, logout}

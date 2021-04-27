@@ -1,4 +1,4 @@
-import { FETCH_USER_DATA_FAIL, FETCH_USER_DATA_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS } from "./types";
+import { FETCH_USER_DATA_FAIL, FETCH_USER_DATA_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT } from "./types";
 
 const initialState = {
     accessToken: localStorage.getItem('accessToken'),
@@ -28,6 +28,13 @@ const userReducer = (state = initialState, action) => {
             localStorage.removeItem('is_management')
             localStorage.removeItem('email')
             return {...state, is_management: null, email: null}
+        }
+        case LOGOUT: {
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
+            localStorage.removeItem('is_management')
+            localStorage.removeItem('email')
+            return {accessToken: null, refreshToken: null, is_management: null, email: null}
         }
         default: return state
     }

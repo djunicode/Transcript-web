@@ -11,6 +11,10 @@ import { URLS } from './consts'
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
 import StudentViewall from './pages/StudentViewall';
+import Activation from './pages/Activation';
+import UploadMarksheet from './pages/UploadMarksheet';
+import EditMarks from './pages/EditMarks';
+
 function App() {
 	return (
 		<Provider store={store}>
@@ -18,9 +22,13 @@ function App() {
 			<ThemeProvider theme={lightTheme}>
 				<BrowserRouter>
 					<Switch>
+						<Route exact path="/demo"><EditMarks /></Route>
 						<Route exact path={URLS.login}> <Login/> </Route>
 						<Route exact path={URLS.signup}> <Signup /> </Route>
+						<Route exact path={URLS.activate}><Activation /></Route>
 						<Route exact path={URLS.home}> <StudentViewall /> </Route>
+						<Route exact path={URLS.transcript.uploadMarksheet}> <UploadMarksheet /> </Route>
+						<Route exact path={URLS.transcript.editMarks}><EditMarks /></Route>
 						<ProtectedRoute exact path="/test"> Testing Protected Routes </ProtectedRoute>
 						{/* Catch all */}
 						<Route path="*" exact>

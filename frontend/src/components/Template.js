@@ -1,22 +1,16 @@
-import { Grid, makeStyles, Paper } from '@material-ui/core'
+import { Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
 import Appbar from './Appbar'
 import SideNav from './SideNav'
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import PaperContainer from './PaperContainer';
 
 const useStyles = makeStyles(theme=>({
-        paperContainer: {
-            padding: theme.spacing(4),
-            margin: theme.spacing(3),
-            backgroundColor: fade(theme.palette.primary.main, 0.4), //40%
-            flexGrow: 1, borderRadius: theme.spacing(3)
-        },
         nestedContainer: {
             flexGrow: 1, display: 'flex', flexDirection:'column'
         }
     })
 )
-function Template({children}) {
+function Template({children, title}) {
     const classes = useStyles()
     return (
         <Grid container>
@@ -25,12 +19,12 @@ function Template({children}) {
             </Grid>
             <Grid item xs={12} sm={8} md={9} lg={10} className={classes.nestedContainer}>
                 <Grid item>
-                    <Appbar />
+                    <Appbar title={title}/>
                 </Grid>
                 <Grid item className={classes.nestedContainer}>
-                    <Paper className={classes.paperContainer}>
+                    <PaperContainer>
                         {children}
-                    </Paper>
+                    </PaperContainer>
                 </Grid>
             </Grid>
         </Grid>

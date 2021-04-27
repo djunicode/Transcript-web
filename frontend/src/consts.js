@@ -2,10 +2,12 @@ const URLS = {
     home: "/",
     login: "/accounts/login",
     signup: "/accounts/signup",
+    activate: "/activate/:uid/:token",
     transcript: {
         viewAll: "/",   //View all is home page for logged in student user
         uploadMarksheet: "/transcript/upload-marksheet",
         createNew: "/transcript/apply",
+        editMarks: "/transcript/edit-marks",
     },
     sop: {
         plagarismChecker: "/sop/plagarism",

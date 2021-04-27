@@ -8,7 +8,7 @@ import { ReactComponent as GearSVG} from '../assets/svg/navbar_gear.svg'
 import { Link } from 'react-router-dom';
 import { URLS } from '../consts'
 // import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-
+import { useSelector } from 'react-redux'
 const drawerWidth = '100%';
 const navItems = {
     'Transcript': {
@@ -99,14 +99,14 @@ const useStyles = makeStyles(theme=>({
 function SideNav() {
     const classes = useStyles()
     // If xs, render drawer?
-    
+    const email = useSelector(state => state.user.email)
     return (
         <div className={classes.drawerPaper}>
             <Typography variant="h5" align="center">Transcript App</Typography>
             <img src={ManSVG} className={classes.svgIcon} height="100" width="fit-content" alt="Profile"/>
             <div className={classes.container}>
                 <Typography align="center" className={classes.loggedInFont}>Logged Into</Typography>
-                <Typography align="center" className={classes.usernameFont}>Username</Typography>
+                <Typography align="center" className={classes.usernameFont}>{email?email.split('@')[0]:null}</Typography>
             </div>
             <List component="nav" className={classes.listRoot}>
                 {
