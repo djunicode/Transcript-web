@@ -2,3 +2,4 @@
 export { loginSuccess, loginFail, fetchUserDataFail, fetchUserDataSuccess, logout } from './User/actions'
 export { fetchUserApplicationsFail, fetchUserApplicationsSuccess} from './StudentDashboard/actions'
 export { extractMarksSuccess, editMarks } from './MarksExtract/actions'
+export { fetchApplications, fetchAcceptedApplications } from './ManagementDashboard/actions'

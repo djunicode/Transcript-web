@@ -17,6 +17,10 @@ const URLS = {
         createNew: "/lor/create",
     },
     settings: "/accounts/settings",
+    management: {
+        applications: "/", //homepage
+        accepted : "/management/accepted",
+    },
 }
 const API_BASE = 'http://unicode2021.pythonanywhere.com'
 export { URLS, API_BASE }
