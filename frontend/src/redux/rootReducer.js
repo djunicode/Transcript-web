@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import marksReducer from './MarksExtract/reducer';
 import { studentDashboardReducer } from './StudentDashboard/reducer';
 import userReducer from './User/reducer'
 
@@ -6,7 +7,8 @@ import userReducer from './User/reducer'
 
 const rootReducer = combineReducers({
     user: userReducer,
-    studentDashboard: studentDashboardReducer
+    studentDashboard: studentDashboardReducer,
+    marksExtractor: marksReducer
 })
 
 export default rootReducer

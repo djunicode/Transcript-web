@@ -1,14 +1,12 @@
-import { Grid, makeStyles, Paper, Typography } from '@material-ui/core'
+import { Grid, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import Appbar from '../components/Appbar'
 import ErrorImage from '../assets/images/error_page.png'
+import PaperContainer from '../components/PaperContainer'
 const useStyles = makeStyles(theme=>({
         root: {minHeight: '100vh', height: '100%', display: 'flex', flexDirection: 'column'},
         paperContainer: {
-            padding: theme.spacing(4),
-            margin: theme.spacing(6),
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: 50, flexGrow: 1, display: 'flex',
+            display:'flex'
         },
         nestedContainer: {
             flexGrow: 1, display: 'flex', flexDirection:'column', justifyContent: 'center'
@@ -44,10 +42,10 @@ function ErrorPage({code, subtitle, text}) {
     return (
         <Grid container className={classes.root}>
             <Grid item>
-                <Appbar />
+                <Appbar title="Error"/>
             </Grid>
             <Grid item container xs={12} className={classes.nestedContainer}>
-                <Paper className={classes.paperContainer}>
+                <PaperContainer className={classes.paperContainer}>
                     <Grid item xs={6} className={`${classes.nestedContainer} ${classes.pad}`}>
                         <Typography align="center" variant="h3" className={classes.title}>Error {code}</Typography>
                         <Typography align="center" variant="subtitle1" gutterBottom>{subtitle}</Typography>
@@ -56,7 +54,7 @@ function ErrorPage({code, subtitle, text}) {
                     <Grid item xs={6} className={classes.nestedContainer}>
                         <div className = {classes.imgContainer} />
                     </Grid>
-                </Paper>
+                </PaperContainer>
             </Grid>
         </Grid>
     )

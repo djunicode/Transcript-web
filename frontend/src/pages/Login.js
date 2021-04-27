@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import { API_BASE, URLS } from "../consts";
 import axios from "axios";
-import { ValidateEmail } from '../utils'
+import { generateHeaders, ValidateEmail } from '../utils'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -80,7 +80,7 @@ export default function LoginPage() {
       //login success
       dispatch(loginSuccess(res.data));
       //Fetch logged in user data
-      axios.get(`${API_BASE}/api/auth/users/me/`, {headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}})
+      axios.get(`${API_BASE}/api/auth/users/me/`, generateHeaders(localStorage.getItem('accessToken')))
       .then(res=>dispatch(fetchUserDataSuccess(res.data)))
       .catch(err=>dispatch(fetchUserDataFail()))
       history.push(URLS.home)

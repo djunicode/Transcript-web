@@ -6,18 +6,19 @@ import { API_BASE } from '../consts'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserApplicationsSuccess } from '../redux'
+import { generateHeaders } from '../utils'
 function StudentViewall() {
     const dispatch = useDispatch()
     const applications = useSelector(state=>state.studentDashboard.applications)
     useEffect(()=>{
-        axios.get(`${API_BASE}/api/student/applications/`, {headers:{Authorization: `Bearer ${localStorage.getItem('accessToken')}`}})
+        axios.get(`${API_BASE}/api/student/applications/`, generateHeaders(localStorage.getItem('accessToken')))
         .then(res=>{
             dispatch(fetchUserApplicationsSuccess(res.data.application.application))
         })
         .catch(err=>console.log(err.response))
     },[])
     return (
-        <Template>
+        <Template title="Dashboard">
             <Grid item container >
             {applications.map((item, idx)=>(
                 <TranscriptGridItem key={idx} 

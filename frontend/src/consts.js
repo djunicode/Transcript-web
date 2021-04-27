@@ -7,6 +7,7 @@ const URLS = {
         viewAll: "/",   //View all is home page for logged in student user
         uploadMarksheet: "/transcript/upload-marksheet",
         createNew: "/transcript/apply",
+        editMarks: "/transcript/edit-marks",
     },
     sop: {
         plagarismChecker: "/sop/plagarism",
