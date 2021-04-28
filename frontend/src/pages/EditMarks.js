@@ -1,12 +1,13 @@
-import { Box, Button, Grid, Input, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Grid, InputBase, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import Template from '../components/Template'
 import { API_BASE, URLS } from '../consts'
-import { editMarks } from '../redux'
+import { editHeading, editMarks } from '../redux'
 import { generateHeaders } from '../utils'
 import axios from 'axios'
+import HTextField from '../components/HTextField'
 const useStyles = makeStyles((theme)=>({
         box: {
             margin: theme.spacing(1),
@@ -22,24 +23,27 @@ const useStyles = makeStyles((theme)=>({
         fw: {
             width: '100%'
         },
-        input: {
-            borderBottom: `6px solid ${theme.palette.primary.main}`
-        },
         topText: {
             margin:theme.spacing(3),
         },
         my: {
             marginTop: theme.spacing(8),
             marginBottom: theme.spacing(4) //For mobile
+        },
+        table: {
+            minWidth: 650
         }
     })
 )
 function EditMarks() {
-    const arr = useSelector(state=> (state.marksExtractor.marks.courses || []))
+    const marks = useSelector(state=> (state.marksExtractor.marks || []))
     const classes = useStyles()
     const dispatch = useDispatch()
-    const handleChange = (idx, newMarks) => {
-        dispatch(editMarks(idx, newMarks))
+    const handleChange = (idx, key, newMarks) => {
+        dispatch(editMarks(idx, key, newMarks))
+    }
+    const changeHeaders = (key, value) => {
+        dispatch(editHeading(key, value))
     }
     const marksheet = useSelector(state => state.marksExtractor.marks)
     const history = useHistory()
@@ -50,21 +54,50 @@ function EditMarks() {
         })
         .catch(err => console.log(err.response))
     }
+    const TableHeadings = ['Course Code', 'Course Name', 'Marks', 'Pointer', 'Credits Earned', 'Grade']
     return (
         <Template title="Edit Marks">
-            <Typography variant="h3" gutterBottom className={classes.topText}>Check your marks</Typography>
+            <Typography variant="h3" gutterBottom className={classes.topText}>Check extracted data</Typography>
             <Grid container align="center">
-                {
-                    arr.map((item,idx)=>(
-                        <Grid item key={idx} xs={12} lg={6}>
-                            <Box className={classes.box}>
-                                <Typography variant="h4" className={classes.typography}>{item.course_name}</Typography>
-                                <TextField onChange={(e)=>handleChange(idx, e.target.value)} color="primary" type="text" value={item.marks} fullWidth/> {/* inputProps={{className:classes.input}}*/}
-                            </Box>
-                        </Grid>
-                        )
-                    )
-                }
+                <Grid item xs={12}>
+                    <HTextField value={marks.sem} label="Semester" onChange={(e)=>changeHeaders("sem", e.target.value)}/>
+                    <HTextField value={marks.credits_earned} label="Credits Earned" onChange={(e)=>changeHeaders("credits_earned", e.target.value)}/>
+                    <HTextField value={marks.cgpa} label="CGPA" onChange={(e)=>changeHeaders("cgpa", e.target.value)}/>
+                </Grid>
+                <TableContainer component={Box}>
+                    <Table className={classes.table}>
+                        <TableHead>
+                            <TableRow>
+                            {
+                                TableHeadings.map((item, idx)=>(
+                                    <TableCell key={idx} align="left">
+                                        {item}
+                                    </TableCell>
+                                    )
+                                )
+                            }
+                            </TableRow>
+                        </TableHead>
+                        {/* ['Course Code', 'Course Name', 'Marks', 'Pointer', 'Credits Earned', 'Grade'] */}
+                        <TableBody>
+                            {
+                                marks.courses.map((item,idx)=>(
+                                        <TableRow key={idx}>
+                                            {
+                                                Object.keys(item).map((key, itemIdx)=>(
+                                                        <TableCell align="left" key={itemIdx}>
+                                                            <InputBase value={item[key]} onChange={(e)=>handleChange(idx, key, e.target.value)}/>
+                                                        </TableCell>
+                                                    )
+                                                )
+                                            }
+                                        </TableRow>
+                                    )
+                                )
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Grid>
             <Grid container justify="center" className={classes.my}>
                 <Grid item>

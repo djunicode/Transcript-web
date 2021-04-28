@@ -1,4 +1,4 @@
-import { EDIT_MARKS, EXTRACT_MARKS_SUCCESS } from "./types";
+import { EDIT_HEADING, EDIT_MARKS, EXTRACT_MARKS_SUCCESS } from "./types";
 
 const extractMarksSuccess = (marks) => ({
         type: EXTRACT_MARKS_SUCCESS,
@@ -6,10 +6,17 @@ const extractMarksSuccess = (marks) => ({
     }
 )
 
-const editMarks = (idx, newMarks) => {
+const editMarks = (idx, key, newMarks) => {
     return {
         type: EDIT_MARKS,
-        payload: {idx, newMarks}
+        payload: {idx, key, newMarks}
     }
 }
-export { extractMarksSuccess, editMarks }
+
+const editHeading = (key, value) => {
+    return {
+        type: EDIT_HEADING,
+        payload: {key, value}
+    }
+}
+export { extractMarksSuccess, editMarks, editHeading }
