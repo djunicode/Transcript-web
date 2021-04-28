@@ -88,9 +88,9 @@ export default function LoginPage() {
     .catch(err=>{
       //login fail
       dispatch(loginFail())
-      if(err.response.status===401){
-        //display invalid credentials on login
-      }
+      // if(err.response.status===401){
+      //   //display invalid credentials on login
+      // }
     })
   }
   return (
