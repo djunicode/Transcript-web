@@ -10,12 +10,12 @@ import ErrorPage from './pages/ErrorPage';
 import { URLS } from './consts'
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
-import StudentViewall from './pages/StudentViewall';
 import Activation from './pages/Activation';
 import UploadMarksheet from './pages/UploadMarksheet';
 import EditMarks from './pages/EditMarks';
 import ManagementAccepted from './pages/ManagementAccepted';
-import ManagementAll from './pages/ManagementAll';
+import Home from './pages/Home';
+
 function App() {
 	return (
 		<Provider store={store}>
@@ -28,10 +28,10 @@ function App() {
 						<Route exact path={URLS.signup}> <Signup /> </Route>
 						<Route exact path={URLS.activate}><Activation /></Route>
 						{/* <Route exact path={URLS.home}> <StudentViewall /> </Route> */}
-						<Route exact path={URLS.transcript.uploadMarksheet}> <UploadMarksheet /> </Route>
-						<Route exact path={URLS.transcript.editMarks}><EditMarks /></Route>
-						<Route exact path={URLS.home}> <ManagementAll /> </Route>
-						<Route exact path={URLS.management.accepted}> <ManagementAccepted /> </Route>
+						<ProtectedRoute exact path={URLS.transcript.uploadMarksheet}> <UploadMarksheet /> </ProtectedRoute>
+						<ProtectedRoute exact path={URLS.transcript.editMarks}><EditMarks /></ProtectedRoute>
+						<ProtectedRoute exact path={URLS.home}> <Home /> </ProtectedRoute>
+						<ProtectedRoute exact path={URLS.management.accepted}> <ManagementAccepted /> </ProtectedRoute>
 						<ProtectedRoute exact path="/test"> Testing Protected Routes </ProtectedRoute>
 						{/* Catch all */}
 						<Route path="*" exact>
