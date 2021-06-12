@@ -57,12 +57,6 @@ class EnterResultSerializer(serializers.Serializer):
     marksheet = serializers.JSONField()
 
 
-# class UploadMarksheetSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Marksheet
-#         fields = ['file']
-
-
 class UploadMarksheetSerializer(serializers.Serializer):
     file = serializers.FileField()
     semester = serializers.CharField()

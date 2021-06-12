@@ -6,7 +6,8 @@ from django.dispatch import receiver
 
 
 class Marksheet(models.Model):
-    file = models.FileField(upload_to='marks', null=True, blank=True)
+    file = models.FileField(upload_to="marks")
+    semester = models.SmallIntegerField()
 
 
 @receiver(post_delete, sender=Marksheet)
@@ -16,10 +17,16 @@ def submission_delete(sender, instance, **kwargs):
 
 class Application(models.Model):
     # ID will be application number
-    student = models.ForeignKey(StudentProfile, null=True, blank=True,
-                                on_delete=models.SET_NULL, default=None)  # Student applies
-    faculty = models.ForeignKey(ManagementProfile, null=True, blank=True,
-                                on_delete=models.SET_NULL, default=None)  # Faculty checks
+    student = models.ForeignKey(
+        StudentProfile, null=True, blank=True, on_delete=models.SET_NULL, default=None
+    )  # Student applies
+    faculty = models.ForeignKey(
+        ManagementProfile,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        default=None,
+    )  # Faculty checks
     created_at = models.DateTimeField(auto_now_add=True)
     # To track when something went in review
     review_time = models.DateTimeField(null=True, blank=True, default=None)
