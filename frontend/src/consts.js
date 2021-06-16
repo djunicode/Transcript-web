@@ -22,5 +22,17 @@ const URLS = {
         accepted : "/management/accepted",
     },
 }
-const API_BASE = 'http://unicode2021.pythonanywhere.com'
-export { URLS, API_BASE }
+const API_BASE = 'https://transcripts-app.herokuapp.com'
+
+const DEPARTMENTS = [
+    ['CS', 'COMPUTERS'],
+    ['IT', 'INFORMATION TECHNOLOGY'],
+    ['EXTC', 'ELECTRONICS AND TELECOMMUNICATION'],
+    ['ELEX', 'ELECTRONICS'],
+    ['MECH', 'MECHANICAL'],
+    ['CHEM', 'CHEMICAL'],
+    ['BIOMED', 'BIOMED'],
+    ['PROD', 'PRODUCTION'],
+    ['OTHERS', 'OTHERS'],
+  ]
+export { URLS, API_BASE, DEPARTMENTS}

@@ -59,39 +59,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginPage() {
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const [isFaculty, setIsFaculty] = useState(false)
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [emailErr, setEmailErr] = useState(false)
-  const classes = useStyles();
-  const matches = useMediaQuery('(min-width:700px)');
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setEmailErr(false)
-    if(!ValidateEmail(username)) { setEmailErr(true); return }
-    //attempt login
-    axios.post(`${API_BASE}/api/auth/jwt/create/`, {
-      email: username,
-      password: password
-    })
-    .then(res=>{
-      //login success
-      dispatch(loginSuccess(res.data));
-      //Fetch logged in user data
-      axios.get(`${API_BASE}/api/auth/users/me/`, generateHeaders(localStorage.getItem('accessToken')))
-      .then(res=>dispatch(fetchUserDataSuccess(res.data)))
-      .catch(err=>dispatch(fetchUserDataFail()))
-      history.push(URLS.home)
-    })
-    .catch(err=>{
-      //login fail
-      dispatch(loginFail())
-      // if(err.response.status===401){
-      //   //display invalid credentials on login
-      // }
-    })
+	const dispatch = useDispatch()
+	const history = useHistory()
+	const [isFaculty, setIsFaculty] = useState(false)
+	const [username, setUsername] = useState("")
+	const [password, setPassword] = useState("")
+	const [emailErr, setEmailErr] = useState(false)
+	const classes = useStyles();
+	const matches = useMediaQuery('(min-width:700px)');
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		setEmailErr(false)
+		if(!ValidateEmail(username)) { setEmailErr(true); return }
+		axios.post(`${API_BASE}/api/auth/login/`, { //attempt login
+			email: username,
+			password: password
+		})
+		.then(res => {
+			dispatch(loginSuccess(res.data)); //login success
+			axios.get(`${API_BASE}/api/auth/users/me/`, generateHeaders(localStorage.getItem('accessToken')))
+			.then(res => {
+				dispatch(fetchUserDataSuccess(res.data))
+			})
+			.catch(err=>dispatch(fetchUserDataFail()))
+				history.push(URLS.home)
+			})
+		.catch(err=>{
+			dispatch(loginFail()) //login fail
+			if(err.response.status===401){
+				//display invalid credentials on login
+			}
+		})
   }
   return (
     // Main

@@ -3,129 +3,68 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { FormControl } from '@material-ui/core';
+import { FormControl, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CreateIcon from '@material-ui/icons/Create';
+import { useDispatch, useSelector } from 'react-redux';
+import { editProfile } from '../redux';
 
 const useStyles = makeStyles((theme)=>({
     root:{
         marginTop:theme.spacing(1.5),
         fontFamily:"dosis",
-        fontSize:"1.1rem"
+        fontSize:"1.1rem",
+        fontWeight: 300,
     },
     header:{
-        fontSize:'2rem'
+        fontSize:'2rem',
+        fontWeight: 500
     }
 }))
 
-function PersonalDetails() {
+function PersonalDetails({errors}) {
     const classes = useStyles();
+    const dispatch = useDispatch()
+    const isFaculty = useSelector(state => state.user.is_management)
+    const settings = useSelector(state => state.settings)
+    const fields = [
+        ['Full Name', 'name'], 
+        // [isFaculty?'STAFF ID':'SAP ID', isFaculty?'staff_id':'sap_id'],
+        [isFaculty?null:'Academic Year', isFaculty?null: 'admission_year'],
+        ['Contact Number', 'contact_no']
+        ]
+    const handleChange = (key, value) => {
+        dispatch(editProfile({key, value}))
+    }
     return (
-        <div>
+        <Grid item xs={12}>
             <Typography className={classes.header}>
-                <Box fontWeight={500}>
-                Personal Details
-                </Box>     
+                Personal Details   
             </Typography>
 
             {/* form */}
             <FormControl fullWidth>
-            {/* Branch */}
-            <Typography className={classes.root}>
-                <Box fontWeight={300}>
-                Branch
-                </Box>     
-            </Typography>
-            <TextField
-            id="branch"
-            fullWidth
-            InputProps={{
-                endAdornment:(
-                    <InputAdornment position="end">
-                        <CreateIcon/>
-                    </InputAdornment>
-                )
-            }}
-            >
-            </TextField>
-
-            {/* Full name */}
-            <Typography className={classes.root}>
-                <Box fontWeight={300}>
-                Full Name
-                </Box>     
-            </Typography>
-            <TextField
-            id="fullname"           
-            fullWidth
-            InputProps={{
-                endAdornment:(
-                    <InputAdornment position="end">
-                        <CreateIcon/>
-                    </InputAdornment>
-                )
-            }}
-            >
-            </TextField>
-
-            {/* sap id */}
-            <Typography className={classes.root}>
-                <Box fontWeight={300}>
-                SAP ID
-                </Box>     
-            </Typography>
-            <TextField
-            id="sapid"            
-            fullWidth
-            InputProps={{
-                endAdornment:(
-                    <InputAdornment position="end">
-                        <CreateIcon/>
-                    </InputAdornment>
-                )
-            }}
-            >
-            </TextField>
-
-            {/* gender */}
-            <Typography className={classes.root}>
-                <Box fontWeight={300}>
-                Gender
-                </Box>     
-            </Typography>
-            <TextField
-            id="gender"            
-            fullWidth
-            InputProps={{
-                endAdornment:(
-                    <InputAdornment position="end">
-                        <CreateIcon/>
-                    </InputAdornment>
-                )
-            }}
-            >
-            </TextField>
-
-            {/* email */}
-            <Typography className={classes.root}>
-                <Box fontWeight={300}>
-                Email
-                </Box>     
-            </Typography>
-            <TextField
-            id="email"
-            fullWidth
-            InputProps={{
-                endAdornment:(
-                    <InputAdornment position="end">
-                        <CreateIcon/>
-                    </InputAdornment>
-                )
-            }}
-            >
-            </TextField>
+            {
+            fields.map((item, idx)=>(item?<div key={idx}>
+                <Typography className={classes.root}>
+                    {item[0]}
+                </Typography>
+                <TextField id={item[0]} fullWidth
+                value = {settings[item[1]] || ""}
+                error = {errors[item[1]]}
+                InputProps={{
+                    endAdornment:(
+                        <InputAdornment position="end"><CreateIcon/></InputAdornment>
+                    )
+                }}
+                onChange={(e) => handleChange(item[1], e.target.value)}
+                />
+            </div>
+            :null)
+            )
+            }
             </FormControl>
-        </div>
+        </Grid>
     )
 }
 

@@ -2,6 +2,6 @@ const ValidateEmail = (mail) => (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]
 const ValidatePhone = (mobile) => (/^\d{10}$/.test(mobile))
 const ValidateAY = (AY) => (/^\d{4}$/.test(AY))
 
-const generateHeaders = (token) => ({headers: {Authorization: `Bearer ${token}`}})
+const generateHeaders = (token) => ({headers: {Authorization: `Token ${token}`}})
 
 export {ValidateEmail, ValidatePhone, ValidateAY, generateHeaders}

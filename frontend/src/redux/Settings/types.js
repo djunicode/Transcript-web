@@ -1,0 +1,2 @@
+export const TOGGLE_THEME = 'TOGGLE_THEME'
+export const EDIT_PROFILE_DATA = 'EDIT_PROFILE_DATA'

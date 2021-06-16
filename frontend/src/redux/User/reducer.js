@@ -4,7 +4,7 @@ const initialState = {
     accessToken: localStorage.getItem('accessToken'),
     refreshToken: localStorage.getItem('refreshToken'),
     email: localStorage.getItem('email'),
-    is_management: localStorage.getItem('is_management')
+    is_management: localStorage.getItem('is_management')==='true'
 }
 
 const userReducer = (state = initialState, action) => {

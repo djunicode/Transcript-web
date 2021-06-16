@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Switch from '@material-ui/core/Switch';
 import axios from "axios";
-import { API_BASE, URLS } from "../consts";
+import { API_BASE, DEPARTMENTS, URLS } from "../consts";
 import {Link, useHistory} from "react-router-dom"
 import { MenuItem, Select } from "@material-ui/core";
 import { ValidateEmail, ValidatePhone, ValidateAY} from "../utils";
@@ -57,17 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {textDecoration: 'None', color: 'inherit'}
 }));
-const items = [
-  ['CS', 'COMPUTERS'],
-  ['IT', 'INFORMATION TECHNOLOGY'],
-  ['EXTC', 'ELECTRONICS AND TELECOMMUNICATION'],
-  ['ELEX', 'ELECTRONICS'],
-  ['MECH', 'MECHANICAL'],
-  ['CHEM', 'CHEMICAL'],
-  ['BIOMED', 'BIOMED'],
-  ['PROD', 'PRODUCTION'],
-  ['OTHERS', 'OTHERS'],
-]
+const items = DEPARTMENTS
 export default function SignupPage() {
   const [isFaculty, setIsFaculty] = useState(false)
   const [username, setUsername] = useState("")
