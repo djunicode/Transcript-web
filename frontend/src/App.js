@@ -17,6 +17,7 @@ import EditMarks from './pages/EditMarks';
 import ManagementAccepted from './pages/ManagementAccepted';
 import Home from './pages/Home';
 import Settings from './pages/Settings'
+import ApplyTranscript from './pages/ApplyTranscript'
 
 function AppWithRedux() {
 	const isDarkTheme = useSelector(state=>state.settings.darkTheme)
@@ -30,6 +31,7 @@ function AppWithRedux() {
 				<Route exact path={URLS.signup}> <Signup /> </Route>
 				<Route exact path={URLS.activate}><Activation /></Route>
 				{/* <Route exact path={URLS.home}> <StudentViewall /> </Route> */}
+				<ProtectedRoute exact path={URLS.transcript.createNew}> <ApplyTranscript /> </ProtectedRoute>
 				<ProtectedRoute exact path={URLS.settings}><Settings /></ProtectedRoute>
 				<ProtectedRoute exact path={URLS.transcript.uploadMarksheet}> <UploadMarksheet /> </ProtectedRoute>
 				<ProtectedRoute exact path={URLS.transcript.editMarks}><EditMarks /></ProtectedRoute>
