@@ -3,3 +3,4 @@ export { loginSuccess, loginFail, fetchUserDataFail, fetchUserDataSuccess, logou
 export { fetchUserApplicationsFail, fetchUserApplicationsSuccess} from './StudentDashboard/actions'
 export { extractMarksSuccess, editMarks, editHeading } from './MarksExtract/actions'
 export { fetchApplications, fetchAcceptedApplications } from './ManagementDashboard/actions'
+export { toggleTheme, editProfile } from './Settings/actions'

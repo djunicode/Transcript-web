@@ -6,12 +6,13 @@ import { API_BASE } from '../consts'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchApplications } from '../redux/ManagementDashboard/actions'
+import { generateHeaders } from '../utils'
 
 function MangementAll() {
     const dispatch = useDispatch()
     const applications = useSelector(state=>state.managementDasboard.applications)
     useEffect(()=>{
-        axios.get(`${API_BASE}/api/management/applications/`, {headers:{Authorization: `Bearer ${localStorage.getItem('accessToken')}`}})
+        axios.get(`${API_BASE}/api/management/applications/`, generateHeaders(localStorage.getItem('accessToken')))
         .then(res=>{
             dispatch(fetchApplications(res.data))
             console.log("then all",res)

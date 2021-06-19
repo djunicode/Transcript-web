@@ -6,12 +6,13 @@ import { API_BASE } from '../consts'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAcceptedApplications } from '../redux/ManagementDashboard/actions'
+import { generateHeaders } from '../utils'
 
 function MangementAccepted() {
     const dispatch = useDispatch()
     const applications = useSelector(state=>state.managementDasboard.applications)
     useEffect(()=>{
-        axios.get(`${API_BASE}/api/management/accepted/`, {headers:{Authorization: `Bearer ${localStorage.getItem('accessToken')}`}})
+        axios.get(`${API_BASE}/api/management/accepted/`, generateHeaders(localStorage.getItem('accessToken')))
         .then(res=>{
             dispatch(fetchAcceptedApplications(res.data))
             console.log("then accpeted",res)
