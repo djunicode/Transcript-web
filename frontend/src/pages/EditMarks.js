@@ -36,36 +36,40 @@ const useStyles = makeStyles((theme)=>({
     })
 )
 function EditMarks() {
-    const marks = useSelector(state=> (state.marksExtractor.marks || []))
+    const marksExtractor = useSelector(state=> (state.marksExtractor || {}))
     const classes = useStyles()
     const dispatch = useDispatch()
-    const handleChange = (idx, key, newMarks) => {
-        dispatch(editMarks(idx, key, newMarks))
+    const history = useHistory()
+    const sem = Object.keys(marksExtractor)[0] //Only 1 sem's marks will be in redux store at any time
+    const marks = marksExtractor[sem]
+    const handleChange = (idx, key, newVal) => {
+        dispatch(editMarks(idx, key, newVal))
     }
     const changeHeaders = (key, value) => {
         dispatch(editHeading(key, value))
     }
-    const marksheet = useSelector(state => state.marksExtractor.marks)
-    const history = useHistory()
     const saveChanges = () => {
-        axios.post(API_BASE+'/api/student/marks/', {marksheet:marksheet}, generateHeaders(localStorage.getItem('accessToken')))
+        axios.post(API_BASE+'/api/student/marks/', {marksheet:marksExtractor}, generateHeaders(localStorage.getItem('accessToken')))
         .then(res => {
             history.push(URLS.transcript.viewAll)
         })
         .catch(err => console.log(err.response))
     }
-    const TableHeadings = ['Course Code', 'Course Name', 'Marks', 'Pointer', 'Credits Earned', 'Grade']
+    const TableHeadings = ['Course Code', 'Course Name', 'Credits Earned', 'Grade', 'Pointer', 'C*G']
     return (
         <Template title="Edit Marks">
             <Typography variant="h3" gutterBottom className={classes.topText}>Check extracted data</Typography>
             <Grid container align="center">
                 <Grid item xs={12}>
-                    <HTextField value={marks.sem} label="Semester" onChange={(e)=>changeHeaders("sem", e.target.value)}/>
-                    <HTextField value={marks.credits_earned} label="Credits Earned" onChange={(e)=>changeHeaders("credits_earned", e.target.value)}/>
+                    <HTextField value={sem} label="Semester" onChange={null}/>
                     <HTextField value={marks.cgpa} label="CGPA" onChange={(e)=>changeHeaders("cgpa", e.target.value)}/>
                 </Grid>
                 <TableContainer component={Box}>
                     <Table className={classes.table}>
+                        <colgroup>
+                            <col style={{width:'20%'}}/>
+                            <col style={{width:'40%'}}/>
+                        </colgroup>
                         <TableHead>
                             <TableRow>
                             {
@@ -81,12 +85,12 @@ function EditMarks() {
                         {/* ['Course Code', 'Course Name', 'Marks', 'Pointer', 'Credits Earned', 'Grade'] */}
                         <TableBody>
                             {
-                                marks.courses.map((item,idx)=>(
+                                marks.subject.map((item,idx)=>(
                                         <TableRow key={idx}>
                                             {
                                                 Object.keys(item).map((key, itemIdx)=>(
                                                         <TableCell align="left" key={itemIdx}>
-                                                            <InputBase value={item[key]} onChange={(e)=>handleChange(idx, key, e.target.value)}/>
+                                                            <InputBase className={classes.fw} value={item[key]} onChange={(e)=>handleChange(idx, key, e.target.value)}/>
                                                         </TableCell>
                                                     )
                                                 )
