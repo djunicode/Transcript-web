@@ -59,7 +59,7 @@ class UserViewSet(UserViewSet):
     Create User (/auth/users/)
 
         ----------
-        Sample Request
+        Sample Request (Student)
         {
             "email": "email@gmail.com",
             "is_management": false,
@@ -70,6 +70,19 @@ class UserViewSet(UserViewSet):
                 "department": "EXTC",
                 "name": "Jinay",
                 "sap_id": "6900411346"
+            },
+            "re_password": "abcd@123"
+        }
+        ----------
+        Sample Request (Staff)
+        {
+            "email": "staff@mail.com",
+            "is_management": true,
+            "password": "abcd@123",
+            "profile": {
+                "contact_no": "9839039821",
+                "name": "Jinay",
+                "staff_id": "6909411346"
             },
             "re_password": "abcd@123"
         }
