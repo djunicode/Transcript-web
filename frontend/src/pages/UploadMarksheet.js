@@ -48,7 +48,8 @@ function UploadMarksheet() {
         formData.append('semester', sem)
         axios.post(API_BASE+'/api/student/scan_marksheet/',formData, generateHeaders(localStorage.getItem('accessToken')))
         .then(res => {
-                setTimeout(2000)
+                // setTimeout(2000)
+                console.log("RES:", res.data)
                 setLoading(false)
                 dispatch(extractMarksSuccess(res.data))
                 history.push(URLS.transcript.editMarks)
@@ -69,7 +70,7 @@ function UploadMarksheet() {
                                     <Typography className={classes.preText}>
                                         No file chosen
                                     </Typography>
-                                    <input accept="image/*" type="file" onChange={(e) => handleUpload(e, idx+1)} hidden/>
+                                    <input accept="application/pdf" type="file" onChange={(e) => handleUpload(e, idx+1)} hidden/>
                                     <Typography className={classes.labelBtn}>Upload</Typography>
                                 </Button>
                             </Box>

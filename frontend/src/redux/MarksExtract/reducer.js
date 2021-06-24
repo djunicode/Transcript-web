@@ -1,24 +1,27 @@
 import { EDIT_HEADING, EDIT_MARKS, EXTRACT_MARKS_SUCCESS } from "./types"
 
 const initialState = {
-    marks: JSON.parse(localStorage.getItem('marks')) || {} //For testing
+
 }
 
 const marksReducer = (state = initialState, action) => {
     switch(action.type){
         case EXTRACT_MARKS_SUCCESS: {
-            localStorage.setItem('marks', JSON.stringify(action.payload))
-            return {...state, marks: action.payload}
+            return {...state, ...action.payload}
         }
         case EDIT_MARKS: {
-            const newCourses = [...state.marks.courses]
-            newCourses[action.payload.idx][action.payload.key] = action.payload.newMarks
-            return {...state, marks: {...state.marks, courses:newCourses}}
+            const sem = Object.keys(state)[0]
+            const newSubject = [...state[sem].subject]
+            newSubject[action.payload.idx][action.payload.key] = action.payload.newMarks
+            return {...state,
+                [sem]: {...state[sem], subject: newSubject}
+            }
         }
         case EDIT_HEADING: {
-            const newM = {...state.marks}
-            newM[action.payload.key] = action.payload.value
-            return {...state, marks: newM}
+            const sem = Object.keys(state)[0]
+            return {...state, 
+                [sem]: {...state[sem], [action.payload.key]: action.payload.value}
+            }
         }
         default: {
             return state
