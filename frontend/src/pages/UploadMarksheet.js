@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Input, makeStyles, Typography } from '@material-ui/core'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import Template from '../components/Template'
 import { API_BASE, URLS } from '../consts'
@@ -38,7 +38,19 @@ const useStyles = makeStyles((theme)=>({
 function UploadMarksheet() {
     const arr = ["Semester I", "Semester II", "Semester III", "Semester IV", "Semester V", "Semester VI", "Semester VII", "Semester VIII"]
     const history = useHistory()
+    const [bools, setBools] = useState([])
     const [loading, setLoading] = useState(false)
+    useEffect(()=>{
+        axios.get(`${API_BASE}/api/student/marks/`, generateHeaders(localStorage.getItem('accessToken')))
+        .then(res => {
+            res.data = {"marksheets": Object.keys(JSON.parse(res.data))}
+            // Expected input format from /api/marksheet/status/
+            const newBools = [false, false, false, false, false, false, false, false]
+            res.data.marksheets.map(item => newBools[item - 1] = true)
+            setBools(newBools)
+        })
+        .catch(err => console.log(err.response))
+    }, [])
     const classes = useStyles()
     const dispatch = useDispatch()
     const handleUpload = (e, sem) => {
@@ -68,10 +80,12 @@ function UploadMarksheet() {
                                 {/* <Input type="file" className={classes.fw} /> */}
                                 <Button variant="text" component="label" className={`${classes.fw} ${classes.input}`}>
                                     <Typography className={classes.preText}>
-                                        No file chosen
+                                        {bools[idx]?"Already uploaded":"No file chosen"}
                                     </Typography>
                                     <input accept="application/pdf" type="file" onChange={(e) => handleUpload(e, idx+1)} hidden/>
-                                    <Typography className={classes.labelBtn}>Upload</Typography>
+                                    <Typography className={classes.labelBtn}>
+                                    {bools[idx]?"Reupload":"Upload"}
+                                    </Typography>
                                 </Button>
                             </Box>
                         </Grid>
