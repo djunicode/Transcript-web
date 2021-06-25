@@ -163,12 +163,42 @@ class ScanMarksheet(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            print(serializer.data())
-            result_data, file = getresult(serializer.data())
+            try:
+                user_obj = StudentProfile.objects.get(user=request.user)
+            except StudentProfile.DoesNotExist:
+                return Response(
+                    {"error": "No such student profile exists"},
+                    status=HTTP_404_NOT_FOUND,
+                )
+            result_data, file = getresult(
+                serializer.data(), marksheet=user_obj.marksheet
+            )
+            print(result_data)
             os.remove(file)
+            if result_data == "wrong file":
+                return Response(
+                    {"error": "Please upload a valid marksheet"},
+                    status=HTTP_400_BAD_REQUEST,
+                )
+            user_obj.marksheet = result_data
+            user_obj.save()
             return Response(result_data, status=HTTP_202_ACCEPTED)
         else:
             return Response({"message": "File Missing"}, status=HTTP_406_NOT_ACCEPTABLE)
+
+
+class MarksheetStatus(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            user = StudentProfile.objects.get(user=request.user)
+        except StudentProfile.DoesNotExist:
+            return Response(
+                {"error": "No such student exists"}, status=HTTP_404_NOT_FOUND
+            )
+        keys = user.marksheet.keys()
+        return Response({"marksheets": keys}, status=HTTP_200_OK)
 
 
 def sort_dict(dic):
