@@ -3,6 +3,7 @@ from accounts.models import StudentProfile, ManagementProfile
 
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
+import jsonfield
 
 
 class Marksheet(models.Model):
@@ -33,7 +34,7 @@ class Application(models.Model):
     comment = models.TextField(blank=True, null=True)
     in_review = models.BooleanField(null=True, default=None)
     accepted = models.BooleanField(default=False)
-
+    marks_copy = jsonfield.JSONField()
     # in_review None => Created but hasn't been sent for review
     # in_review True => Sent for (and in) review
     # in_review False => Finished Reviewing
