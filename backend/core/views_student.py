@@ -175,11 +175,11 @@ class ScanMarksheet(APIView):
             )
             print(result_data)
             os.remove(file)
-            if result_data == "wrong file":
-                return Response(
-                    {"error": "Please upload a valid marksheet"},
-                    status=HTTP_400_BAD_REQUEST,
-                )
+            # if result_data == "wrong file":
+            #     return Response(
+            #         {"error": "Please upload a valid marksheet"},
+            #         status=HTTP_400_BAD_REQUEST,
+            #     )
             user_obj.marksheet = result_data
             user_obj.save()
             return Response(result_data, status=HTTP_202_ACCEPTED)

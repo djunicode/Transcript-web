@@ -147,8 +147,16 @@ class PermLoginView(APIView):
             username=request.data["email"], password=request.data["password"]
         )
         if user is not None:
+            try:
+                obj = StudentProfile.objects.get(user=user)
+            except Exception:
+                obj = ManagementProfile.objects.get(user=user)
             return Response(
-                {"token": Token.objects.get(user=user).key}, status=status.HTTP_200_OK
+                {
+                    "token": Token.objects.get(user=user).key,
+                    "name": obj.name,
+                },
+                status=status.HTTP_200_OK,
             )
         return Response({"token": None}, status=status.HTTP_200_OK)
 
