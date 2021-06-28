@@ -41,10 +41,8 @@ function UploadMarksheet() {
     const [bools, setBools] = useState([])
     const [loading, setLoading] = useState(false)
     useEffect(()=>{
-        axios.get(`${API_BASE}/api/student/marks/`, generateHeaders(localStorage.getItem('accessToken')))
+        axios.get(`${API_BASE}/api/marksheet/status/`, generateHeaders(localStorage.getItem('accessToken')))
         .then(res => {
-            res.data = {"marksheets": Object.keys(JSON.parse(res.data))}
-            // Expected input format from /api/marksheet/status/
             const newBools = [false, false, false, false, false, false, false, false]
             res.data.marksheets.map(item => newBools[item - 1] = true)
             setBools(newBools)
