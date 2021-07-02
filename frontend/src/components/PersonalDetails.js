@@ -30,7 +30,7 @@ function PersonalDetails({errors}) {
     const fields = [
         ['Full Name', 'name'], 
         // [isFaculty?'STAFF ID':'SAP ID', isFaculty?'staff_id':'sap_id'],
-        [isFaculty?null:'Academic Year', isFaculty?null: 'admission_year'],
+        isFaculty?null:['Academic Year', 'admission_year'],
         ['Contact Number', 'contact_no']
         ]
     const handleChange = (key, value) => {

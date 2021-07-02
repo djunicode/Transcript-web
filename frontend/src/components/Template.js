@@ -6,7 +6,8 @@ import PaperContainer from './PaperContainer';
 
 const useStyles = makeStyles(theme=>({
         nestedContainer: {
-            flexGrow: 1, display: 'flex', flexDirection:'column'
+            flexGrow: 1, display: 'flex', flexDirection:'column',
+            backgroundColor: theme.palette.type==="dark"?'#333':'transparent'
         }
     })
 )

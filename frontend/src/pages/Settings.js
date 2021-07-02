@@ -10,7 +10,7 @@ import { generateHeaders, ValidateAY, ValidatePhone } from '../utils'
 
 const useStyles = makeStyles(theme=>({
         btn: {
-            background: theme.palette.primary.main,
+            background: theme.palette.primary.light,
             borderRadius: 5,
         }
     })

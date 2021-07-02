@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme)=>({
         },
         input: {
             justifyContent:'flex-end', alignItems: 'flex-end',
-            borderBottom: `6px solid ${theme.palette.primary.main}`
+            borderBottom: `6px solid ${theme.palette.primary.light}`
         },
         labelBtn: {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.light,
             padding: theme.spacing(1),
             borderRadius: theme.spacing(1)
         },

@@ -4,7 +4,12 @@ import Appbar from '../components/Appbar'
 import ErrorImage from '../assets/images/error_page.png'
 import PaperContainer from '../components/PaperContainer'
 const useStyles = makeStyles(theme=>({
-        root: {minHeight: '100vh', height: '100%', display: 'flex', flexDirection: 'column'},
+        root: {
+            minHeight: '100vh', height: '100%', display: 'flex', 
+            flexDirection: 'column',
+            background: theme.palette.type==="light"?theme.palette.primary.main:"#333"
+        },
+
         paperContainer: {
             display:'flex'
         },

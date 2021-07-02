@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
+import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import ManSVG from '../assets/svg/man.svg';
 import { ReactComponent as TranscriptSVG} from '../assets/svg/navbar_transcript.svg'
@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme=>({
         drawer: { flexShrink: 0 },
         drawerPaper: {
             width: drawerWidth, minHeight: '100vh', height: '100%',
-            backgroundColor: theme.palette.primary.dark,
+            background: theme.palette.primary.dark,
         },
         svgIcon: {
             display: 'block',
@@ -119,6 +119,7 @@ function SideNav() {
     const navItems = is_management?navItemsManagement:navItemsStudent
     return (
         <div className={classes.drawerPaper}>
+            <CssBaseline />
             <Typography variant="h5" align="center">Transcript App</Typography>
             <img src={ManSVG} className={classes.svgIcon} height="100" width="fit-content" alt="Profile"/>
             <div className={classes.container}>
