@@ -8,7 +8,7 @@ import { generateHeaders } from '../utils'
 const useStyles = makeStyles(theme => ({
     btn: {
         marginTop: theme.spacing(3), marginBottom: theme.spacing(5),
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: theme.palette.primary.light
     }
 })
 )

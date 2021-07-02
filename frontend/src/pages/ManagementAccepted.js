@@ -1,6 +1,6 @@
 import { Grid } from '@material-ui/core'
 import React, { useEffect } from 'react'
-import ManagementTemplate from '../components/ManagementTemplate'
+import Template from '../components/Template'
 import TranscriptGridItem from '../components/TranscriptGridItem'
 import { API_BASE } from '../consts'
 import axios from 'axios'
@@ -21,7 +21,7 @@ function MangementAccepted() {
         .catch(err=>console.log("error",err))
     },[])
     return (
-        <ManagementTemplate>
+        <Template>
             <Grid item container >
              {/* {applications.map((item, idx)=>(
                 <TranscriptGridItem key={idx} 
@@ -32,7 +32,7 @@ function MangementAccepted() {
                 )
             )}  */}
             </Grid>
-        </ManagementTemplate>
+        </Template>
     )
 }
 

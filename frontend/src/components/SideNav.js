@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
+import { CssBaseline, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import ManSVG from '../assets/svg/man.svg';
 import { ReactComponent as TranscriptSVG} from '../assets/svg/navbar_transcript.svg'
@@ -10,7 +10,7 @@ import { URLS } from '../consts'
 // import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import { useSelector } from 'react-redux'
 const drawerWidth = '100%';
-const navItems = {
+const navItemsStudent = {
     'Transcript': {
         'icon': <TranscriptSVG />,
         'items': [
@@ -20,17 +20,32 @@ const navItems = {
         ],
         'clickUrl': false
     },
-    'SOP': {
-        'icon': <SopSVG />,
+    // 'SOP': {
+    //     'icon': <SopSVG />,
+    //     'items': [
+    //         ["Plagarism Checker", URLS.sop.plagarismChecker]
+    //     ],
+    //     'clickUrl': false
+    // },
+    // 'LOR': {
+    //     'icon': <LorSVG />,
+    //     'items': [
+    //         ["View all", URLS.lor.viewAll], ["Create new", URLS.lor.createNew]
+    //     ],
+    //     'clickUrl': false
+    // },
+    'Settings': {
+        'icon': <GearSVG />,
+        'items': [],
+        'clickUrl': URLS.settings
+    }
+}
+const navItemsManagement = {
+    'Transcript': {
+        'icon': <TranscriptSVG />,
         'items': [
-            ["Plagarism Checker", URLS.sop.plagarismChecker]
-        ],
-        'clickUrl': false
-    },
-    'LOR': {
-        'icon': <LorSVG />,
-        'items': [
-            ["View all", URLS.lor.viewAll], ["Create new", URLS.lor.createNew]
+            ["View Pending", URLS.management.applications], 
+            ["View Approved", URLS.management.accepted], 
         ],
         'clickUrl': false
     },
@@ -45,7 +60,7 @@ const useStyles = makeStyles(theme=>({
         drawer: { flexShrink: 0 },
         drawerPaper: {
             width: drawerWidth, minHeight: '100vh', height: '100%',
-            backgroundColor: theme.palette.primary.dark,
+            background: theme.palette.primary.dark,
         },
         svgIcon: {
             display: 'block',
@@ -100,8 +115,11 @@ function SideNav() {
     const classes = useStyles()
     // If xs, render drawer?
     const email = useSelector(state => state.user.email)
+    const is_management = useSelector(state => state.user.is_management)
+    const navItems = is_management?navItemsManagement:navItemsStudent
     return (
         <div className={classes.drawerPaper}>
+            <CssBaseline />
             <Typography variant="h5" align="center">Transcript App</Typography>
             <img src={ManSVG} className={classes.svgIcon} height="100" width="fit-content" alt="Profile"/>
             <div className={classes.container}>

@@ -5,7 +5,7 @@ const lightTheme = responsiveFontSizes(createMuiTheme({
     type: 'light',
     primary: {
       main: "#ABC0FF", //grid and nav-bar
-      light:"#5A75C8", //buttons
+      light:"#9AB3FF", //buttons
       dark:"#7A90D2", //left side bar
     }
   },

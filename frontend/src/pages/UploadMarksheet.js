@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Input, makeStyles, Typography } from '@material-ui/core'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import Template from '../components/Template'
 import { API_BASE, URLS } from '../consts'
@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme)=>({
         },
         input: {
             justifyContent:'flex-end', alignItems: 'flex-end',
-            borderBottom: `6px solid ${theme.palette.primary.main}`
+            borderBottom: `6px solid ${theme.palette.primary.light}`
         },
         labelBtn: {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.light,
             padding: theme.spacing(1),
             borderRadius: theme.spacing(1)
         },
@@ -38,7 +38,17 @@ const useStyles = makeStyles((theme)=>({
 function UploadMarksheet() {
     const arr = ["Semester I", "Semester II", "Semester III", "Semester IV", "Semester V", "Semester VI", "Semester VII", "Semester VIII"]
     const history = useHistory()
+    const [bools, setBools] = useState([])
     const [loading, setLoading] = useState(false)
+    useEffect(()=>{
+        axios.get(`${API_BASE}/api/marksheet/status/`, generateHeaders(localStorage.getItem('accessToken')))
+        .then(res => {
+            const newBools = [false, false, false, false, false, false, false, false]
+            res.data.marksheets.map(item => newBools[item - 1] = true)
+            setBools(newBools)
+        })
+        .catch(err => console.log(err.response))
+    }, [])
     const classes = useStyles()
     const dispatch = useDispatch()
     const handleUpload = (e, sem) => {
@@ -68,10 +78,12 @@ function UploadMarksheet() {
                                 {/* <Input type="file" className={classes.fw} /> */}
                                 <Button variant="text" component="label" className={`${classes.fw} ${classes.input}`}>
                                     <Typography className={classes.preText}>
-                                        No file chosen
+                                        {bools[idx]?"Already uploaded":"No file chosen"}
                                     </Typography>
                                     <input accept="application/pdf" type="file" onChange={(e) => handleUpload(e, idx+1)} hidden/>
-                                    <Typography className={classes.labelBtn}>Upload</Typography>
+                                    <Typography className={classes.labelBtn}>
+                                    {bools[idx]?"Reupload":"Upload"}
+                                    </Typography>
                                 </Button>
                             </Box>
                         </Grid>
