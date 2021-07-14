@@ -17,8 +17,24 @@ import tabula
 import json
 from .ocr import getresult
 import os
+from .serializers import ApplicationSerializer
 
 
+class ApplicationDetail(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk):
+        if not request.user.is_management:
+            student = StudentProfile.objects.get(user=request.user)
+            app = Application.objects.filter(pk=pk, student=student)
+        else:
+            app = Application.objects.filter(pk=pk)
+        if app.exists():
+            ser = ApplicationSerializer(app.first())
+            return Response(ser.data, status=HTTP_200_OK)
+        else:
+            return Response(
+                {"message": "No matching application found"}, status=HTTP_404_NOT_FOUND
+            ) 
 class StudentApplication(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -33,8 +49,8 @@ class StudentApplication(APIView):
                     for app in Old_application:
                         data = {}
                         if app.in_review == False:
-
                             data = {
+                                "id": app.id,
                                 "Student Name": student.name,
                                 "Faculty": app.faculty.name,
                                 "created_at": app.created_at,
@@ -44,6 +60,7 @@ class StudentApplication(APIView):
                             }
                         else:
                             data = {
+                                "id": app.id,
                                 "Student Name": student.name,
                                 "created_at": app.created_at,
                             }

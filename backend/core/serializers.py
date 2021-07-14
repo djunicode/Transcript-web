@@ -26,7 +26,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
     marksheet = serializers.SerializerMethodField("get_marks")
 
     def get_marks(self, obj):
-        return obj.student.marksheet
+        return obj.marks_copy
 
     class Meta:
         model = Application

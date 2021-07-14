@@ -15,6 +15,7 @@ urlpatterns = [
     path("management/accepted/", AcceptedApplications.as_view()),
     # Student Dashboard :
     path("student/applications/", StudentApplication.as_view()),
+    path("student/applications/<int:pk>/", ApplicationDetail.as_view()),
     path("student/scan_marksheet/", ScanMarksheet.as_view(), name="scan_marksheer"),
     path("student/marks/", EnterMarks.as_view(), name="Enter marks"),
     path("marksheet/status/", MarksheetStatus.as_view(), name="marksheet_status"),
