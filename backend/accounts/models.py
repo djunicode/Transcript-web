@@ -87,7 +87,7 @@ class StudentProfile(models.Model):
     department = models.CharField(max_length=40, choices=departments)
     # can also take date as the input (change it to datefield)
     admission_year = models.CharField(max_length=5)
-    marksheet = models.JSONField()
+    marksheet = models.JSONField(blank=True, null=True, default=dict)
 
     def __str__(self):
         return self.name
