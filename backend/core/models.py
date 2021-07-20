@@ -34,7 +34,7 @@ class Application(models.Model):
     comment = models.TextField(blank=True, null=True)
     in_review = models.BooleanField(null=True, default=None)
     accepted = models.BooleanField(default=False)
-    marks_copy = models.JSONField()
+    marks_copy = models.JSONField(blank=True, null=True)
     # in_review None => Created but hasn't been sent for review
     # in_review True => Sent for (and in) review
     # in_review False => Finished Reviewing
