@@ -6,9 +6,10 @@ const useStyles = makeStyles(theme=>({
             padding: theme.spacing(4),
             margin: theme.spacing(3),
             backgroundColor: fade(theme.palette.primary.main, 0.4), //40%
+            minHeight: '50vh',
             flexGrow: 1, borderRadius: theme.spacing(3),
             [theme.breakpoints.down('xs')]: {
-                padding: 0, margin: 0, marginTop: theme.spacing(2)
+                padding: theme.spacing(1.25), margin: theme.spacing(1), marginTop: theme.spacing(2)
             }
         },
     })

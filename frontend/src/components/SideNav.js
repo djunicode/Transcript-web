@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme=>({
             fontWeight: 200,
         },
         usernameFont: {
-            fontSize: 36,
+            fontSize: '1.5rem',
             fontStyle: "normal",
             fontWeight: 700,
         },
@@ -115,6 +115,7 @@ function SideNav() {
     const classes = useStyles()
     // If xs, render drawer?
     const email = useSelector(state => state.user.email)
+    const name = useSelector(state => state.user.name)
     const is_management = useSelector(state => state.user.is_management)
     const navItems = is_management?navItemsManagement:navItemsStudent
     return (
@@ -124,7 +125,7 @@ function SideNav() {
             <img src={ManSVG} className={classes.svgIcon} height="100" width="fit-content" alt="Profile"/>
             <div className={classes.container}>
                 <Typography align="center" className={classes.loggedInFont}>Logged Into</Typography>
-                <Typography align="center" className={classes.usernameFont}>{email?email.split('@')[0]:null}</Typography>
+                <Typography align="center" className={classes.usernameFont}>{name}</Typography>
             </div>
             <List component="nav" className={classes.listRoot}>
                 {
