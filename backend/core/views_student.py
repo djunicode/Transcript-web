@@ -91,7 +91,7 @@ class StudentApplication(APIView):
                     last = len(old_application) - 1
                     application = old_application[last]
                     if application.in_review == False:
-                        new_application = Application.objects.create(student=student)
+                        new_application = Application.objects.create(student=student, marks_copy=student.marksheet)
 
                     else:
                         return Response(
@@ -101,7 +101,7 @@ class StudentApplication(APIView):
                             status=HTTP_208_ALREADY_REPORTED,
                         )
                 else:
-                    new_application = Application.objects.create(student=student)
+                    new_application = Application.objects.create(student=student, marks_copy=student.marksheet)
                 data = {
                     "Student Name": student.name,
                     "created_at": new_application.created_at,
@@ -132,21 +132,20 @@ class EnterMarks(APIView):
             old_marksheet = student.marksheet
             new_marksheet = {}
             serializer = self.serializer_class(data=request.data)
+            sem_no = str(request.data.get("sem", None))
             if serializer.is_valid():
                 marks = serializer.data.get("marksheet")
-
                 if len(old_marksheet) > 0:
-                    if len(old_marksheet) == 8:
+                    if len(old_marksheet) == 8 and sem_no not in old_marksheet.keys():
+                        #Update after 8 sems is also possible
                         return Response(
                             {"message": "Marksheet Must contain atmost 8 semester"},
                             status=HTTP_400_BAD_REQUEST,
                         )
-                    new_marksheet = old_marksheet.copy()
-                    sem_no = str(marks["sem"])
+                    new_marksheet = old_marksheet.copy()  
                     new_marksheet[sem_no] = marks
                     new_marksheet = sort_dict(new_marksheet)
                 else:
-                    sem_no = marks["sem"]
                     new_marksheet[sem_no] = marks
                 student.marksheet = new_marksheet
                 student.save()
