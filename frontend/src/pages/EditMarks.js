@@ -56,6 +56,7 @@ function EditMarks() {
         .catch(err => console.log(err.response))
     }
     const TableHeadings = ['Course Code', 'Course Name', 'Credits Earned', 'Grade', 'Pointer', 'C*G']
+    const keys = ['course_code', 'course_name', 'credits_earned', 'grade', 'pointer', 'cg']
     return (
         <Template title="Edit Marks">
             <Typography variant="h3" gutterBottom className={classes.topText}>Check extracted data</Typography>
@@ -88,7 +89,7 @@ function EditMarks() {
                                 marks.subject.map((item,idx)=>(
                                         <TableRow key={idx}>
                                             {
-                                                Object.keys(item).map((key, itemIdx)=>(
+                                                keys.map((key, itemIdx)=>(
                                                         <TableCell align="left" key={itemIdx}>
                                                             <InputBase className={classes.fw} value={item[key]} onChange={(e)=>handleChange(idx, key, e.target.value)}/>
                                                         </TableCell>
